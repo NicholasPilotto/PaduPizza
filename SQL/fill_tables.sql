@@ -1,4 +1,4 @@
-INSERT INTO ingrediente (nome, conservazione) VALUES (
+INSERT INTO ingrediente (nome, conservazione) VALUES 
 	('Pomodoro', 'Fuori frigo'),
 	('Aglio', 'Fuori frigo'),
 	('Mozzarella', 'Frigo'),
@@ -70,5 +70,4 @@ INSERT INTO ingrediente (nome, conservazione) VALUES (
 	('Tonno sott''olio', 'Fuori frigo'),
 	('Frutti di mare', 'Frigo'),
 	('Gamberetti', 'Frigo'),
-	('Polpa di granchio', 'Frigo')	
-);
+	('Polpa di granchio', 'Frigo');
