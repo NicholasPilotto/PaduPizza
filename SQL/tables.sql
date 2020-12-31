@@ -112,9 +112,8 @@ CREATE TABLE cliente (
 );
 
 CREATE TABLE ingrediente (
-	nome VARCHAR(10),
+	nome VARCHAR(25),
 	conservazione VARCHAR(20),
-	data_scadente TIME,
 
 	PRIMARY KEY (nome)
 );
