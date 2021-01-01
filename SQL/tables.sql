@@ -19,6 +19,8 @@ DROP TABLE IF EXISTS stipendio_base CASCADE;
 DROP TABLE IF EXISTS stock CASCADE;
 DROP TABLE IF EXISTS titolare CASCADE;
 
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
 CREATE TABLE titolare (
 	cf VARCHAR(20),
 	nome VARCHAR(15),
@@ -28,7 +30,7 @@ CREATE TABLE titolare (
 );
 
 CREATE TABLE calendario (
-	id BIGINT,
+	id TEXT DEFAULT (generate_uid(5)),
 	giorno_chiusura INT,
 	ora_apertura TIME,
 	ora_chiusura TIME,
@@ -37,7 +39,7 @@ CREATE TABLE calendario (
 );
 
 CREATE TABLE amministrazione (
-	id BIGINT,
+	id TEXT DEFAULT (generate_uid(5)),
 	sito_web VARCHAR(20),
 	mail VARCHAR(20),
 	numero_tel VARCHAR(10),
@@ -50,15 +52,15 @@ CREATE TABLE amministrazione (
 );
 
 CREATE TABLE pizzeria (
-	id BIGINT,
+	id TEXT DEFAULT (generate_uid(5)),
 	indirizzo VARCHAR(20),
 	citta VARCHAR(20),
 	provincia VARCHAR(2),
 	numero_tel VARCHAR(10),
 
-	calendario BIGINT,
+	calendario TEXT,
 	titolare VARCHAR(16),
-	amministrazione BIGINT,
+	amministrazione TEXT,
 
 	PRIMARY KEY (id),
 
@@ -82,7 +84,7 @@ CREATE TABLE dipendente (
 	data_assunzione DATE,
 	impiego VARCHAR(20),
 
-	pizzeria BIGINT,
+	pizzeria TEXT,
 
 	PRIMARY KEY(cf),
 
@@ -104,7 +106,7 @@ CREATE TABLE km_percorsi (
 );
 
 CREATE TABLE cliente (
-	id BIGINT,
+	id TEXT DEFAULT (generate_uid(5)),
 	cognome VARCHAR(15),
 	indirizzo VARCHAR(20),
 
@@ -119,12 +121,12 @@ CREATE TABLE ingrediente (
 );
 
 CREATE TABLE ordine (
-	id BIGINT,
+	id TEXT DEFAULT (generate_uid(5)),
 	ora TIME,
 
 	dipendente VARCHAR(16),
-	pizzeria BIGINT,
-	cliente BIGINT,
+	pizzeria TEXT,
+	cliente TEXT,
 
 	PRIMARY KEY (id),
 
@@ -135,7 +137,7 @@ CREATE TABLE ordine (
 );
 
 CREATE TABLE scontrino (
-	id BIGINT,
+	id TEXT DEFAULT (generate_uid(5)),
 	data TIMESTAMP,
 	tipo_pagamento VARCHAR(20),
 	totale_lordo NUMERIC(5, 2),
@@ -159,7 +161,7 @@ CREATE TABLE pizza (
 );
 
 CREATE TABLE composizione_ordine (
-	ordine BIGINT,
+	ordine TEXT,
 	pizza VARCHAR(15),
 	formato_pizza VARCHAR(15),
 
@@ -188,7 +190,7 @@ CREATE TABLE ricetta (
 );
 
 CREATE TABLE fornitore (
-	id BIGINT,
+	id TEXT DEFAULT (generate_uid(5)),
 	p_iva VARCHAR(20),
 	azienda VARCHAR(20),
 	numero_tel VARCHAR(10),
@@ -200,9 +202,9 @@ CREATE TABLE fornitore (
 );
 
 CREATE TABLE magazzino (
-	id BIGINT,
+	id TEXT DEFAULT (generate_uid(5)),
 
-	gestore BIGINT,
+	gestore TEXT,
 
 	PRIMARY KEY (id),
 
@@ -211,7 +213,7 @@ CREATE TABLE magazzino (
 );
 
 CREATE TABLE stock (
-	magazzino BIGINT,
+	magazzino TEXT DEFAULT (generate_uid(5)),
 	ingrediente VARCHAR(20),
 
 	quantita INT,
@@ -224,21 +226,21 @@ CREATE TABLE stock (
 );
 
 CREATE TABLE rifornimento (
-	id BIGINT,
+	id TEXT DEFAULT (generate_uid(5)),
 
-	mittente BIGINT,
-	magazzino BIGINT,
+	mittente TEXT,
+	magazzino TEXT,
 
 	PRIMARY KEY (id),
 
 	CONSTRAINT fk_rifornimento
-	FOREIGN KEY (mittente) REFERENCES fornitore(id) ON DELETE CASCADE,
-	FOREIGN KEY (mittente) REFERENCES fornitore(id) ON DELETE CASCADE, 
+	-- FOREIGN KEY (mittente) REFERENCES fornitore(id) ON DELETE CASCADE, ?
+	-- FOREIGN KEY (mittente) REFERENCES fornitore(id) ON DELETE CASCADE, ?
 	FOREIGN KEY (magazzino) REFERENCES magazzino(id) ON DELETE CASCADE
 );
 
 CREATE TABLE bolla_carico (
-	rifornimento BIGINT,
+	rifornimento TEXT DEFAULT (generate_uid(5)),
 	ingrediente VARCHAR(20),
 	quantita INT,
 
@@ -248,3 +250,4 @@ CREATE TABLE bolla_carico (
 	FOREIGN KEY (rifornimento) REFERENCES rifornimento(id) ON DELETE CASCADE,
 	FOREIGN KEY (ingrediente) REFERENCES ingrediente(nome) ON DELETE CASCADE
 );
+
