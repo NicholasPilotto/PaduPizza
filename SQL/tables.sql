@@ -30,7 +30,7 @@ CREATE TABLE titolare (
 );
 
 CREATE TABLE calendario (
-	id BIGINT,
+	id SERIAL,
 	giorno_chiusura INT,
 	ora_apertura TIME,
 	ora_chiusura TIME,
@@ -106,7 +106,7 @@ CREATE TABLE km_percorsi (
 );
 
 CREATE TABLE cliente (
-	id BIGINT,
+	id SERIAL,
 	cognome VARCHAR(15),
 	indirizzo VARCHAR(20),
 
@@ -121,7 +121,7 @@ CREATE TABLE ingrediente (
 );
 
 CREATE TABLE ordine (
-	id BIGINT,
+	id SERIAL,
 	ora TIME,
 
 	dipendente VARCHAR(16),
@@ -137,7 +137,7 @@ CREATE TABLE ordine (
 );
 
 CREATE TABLE scontrino (
-	id BIGINT,
+	id SERIAL,
 	data TIMESTAMP,
 	tipo_pagamento VARCHAR(20),
 	totale_lordo NUMERIC(5, 2),
@@ -161,7 +161,7 @@ CREATE TABLE pizza (
 );
 
 CREATE TABLE composizione_ordine (
-	ordine BIGINT,
+	ordine SERIAL,
 	pizza VARCHAR(15),
 	formato_pizza VARCHAR(15),
 
@@ -202,7 +202,7 @@ CREATE TABLE fornitore (
 );
 
 CREATE TABLE magazzino (
-	id BIGINT,
+	id SERIAL,
 
 	gestore TEXT,
 
@@ -213,7 +213,7 @@ CREATE TABLE magazzino (
 );
 
 CREATE TABLE stock (
-	magazzino BIGINT,
+	magazzino SERIAL,
 	ingrediente VARCHAR(20),
 
 	quantita INT,
@@ -226,7 +226,7 @@ CREATE TABLE stock (
 );
 
 CREATE TABLE rifornimento (
-	id BIGINT,
+	id SERIAL,
 
 	mittente TEXT,
 	magazzino BIGINT,
@@ -240,7 +240,7 @@ CREATE TABLE rifornimento (
 );
 
 CREATE TABLE bolla_carico (
-	rifornimento BIGINT,
+	rifornimento SERIAL,
 	ingrediente VARCHAR(20),
 	quantita INT,
 
