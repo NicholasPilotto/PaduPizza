@@ -264,3 +264,15 @@ $body$
 	GROUP BY pizza, ripetizioni, aggiunte, rimozioni
 
 $body$ LANGUAGE SQL;
+
+CREATE OR REPLACE FUNCTION total_price(ord BIGINT) RETURNS table(price NUMERIC(5,2)) AS
+$body$
+	SELECT SUM(price) AS total
+	FROM net_total_order(ord);
+$body$ LANGUAGE SQL;
+
+CREATE OR REPLACE FUNCTION total_vat(ord BIGINT) RETURNS table(price NUMERIC(5,2)) AS
+$body$
+	SELECT (price * 10) / 110 as total
+	FROM total_price(ord);
+$body$ LANGUAGE SQL;
