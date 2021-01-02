@@ -108,7 +108,7 @@ CREATE TABLE km_percorsi (
 CREATE TABLE cliente (
 	id SERIAL,
 	cognome VARCHAR(15),
-	indirizzo VARCHAR(20),
+	indirizzo VARCHAR(50),
 
 	PRIMARY KEY (id)
 );
@@ -137,7 +137,7 @@ CREATE TABLE ordine (
 );
 
 CREATE TABLE scontrino (
-	id SERIAL,
+	id BIGINT,
 	data TIMESTAMP,
 	tipo_pagamento VARCHAR(20),
 	totale_lordo NUMERIC(5, 2),
@@ -250,3 +250,17 @@ CREATE TABLE bolla_carico (
 	FOREIGN KEY (rifornimento) REFERENCES rifornimento(id) ON DELETE CASCADE,
 	FOREIGN KEY (ingrediente) REFERENCES ingrediente(nome) ON DELETE CASCADE
 );
+
+CREATE OR REPLACE FUNCTION net_total_order(ord BIGINT) RETURNS table(price NUMERIC(5,2)) AS
+$body$
+
+	SELECT (SUM(prezzo) * ripetizioni) + aggiunte - rimozioni as total
+	FROM composizione_ordine
+	LEFT JOIN pizza
+	ON pizza.nome = composizione_ordine.pizza
+	LEFT JOIN formato_pizza
+	ON formato_pizza.tipo = composizione_ordine.formato_pizza
+	WHERE composizione_ordine.ordine = ord
+	GROUP BY pizza, ripetizioni, aggiunte, rimozioni
+
+$body$ LANGUAGE SQL;
