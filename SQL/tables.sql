@@ -30,7 +30,7 @@ CREATE TABLE titolare (
 );
 
 CREATE TABLE calendario (
-	id TEXT DEFAULT (generate_uid(5)),
+	id BIGINT,
 	giorno_chiusura INT,
 	ora_apertura TIME,
 	ora_chiusura TIME,
@@ -58,7 +58,7 @@ CREATE TABLE pizzeria (
 	provincia VARCHAR(2),
 	numero_tel VARCHAR(10),
 
-	calendario TEXT,
+	calendario BIGINT,
 	titolare VARCHAR(16),
 	amministrazione TEXT,
 
@@ -106,7 +106,7 @@ CREATE TABLE km_percorsi (
 );
 
 CREATE TABLE cliente (
-	id TEXT DEFAULT (generate_uid(5)),
+	id BIGINT,
 	cognome VARCHAR(15),
 	indirizzo VARCHAR(20),
 
@@ -121,12 +121,12 @@ CREATE TABLE ingrediente (
 );
 
 CREATE TABLE ordine (
-	id TEXT DEFAULT (generate_uid(5)),
+	id BIGINT,
 	ora TIME,
 
 	dipendente VARCHAR(16),
 	pizzeria TEXT,
-	cliente TEXT,
+	cliente BIGINT,
 
 	PRIMARY KEY (id),
 
@@ -137,7 +137,7 @@ CREATE TABLE ordine (
 );
 
 CREATE TABLE scontrino (
-	id TEXT DEFAULT (generate_uid(5)),
+	id BIGINT,
 	data TIMESTAMP,
 	tipo_pagamento VARCHAR(20),
 	totale_lordo NUMERIC(5, 2),
@@ -161,7 +161,7 @@ CREATE TABLE pizza (
 );
 
 CREATE TABLE composizione_ordine (
-	ordine TEXT,
+	ordine BIGINT,
 	pizza VARCHAR(15),
 	formato_pizza VARCHAR(15),
 
@@ -202,7 +202,7 @@ CREATE TABLE fornitore (
 );
 
 CREATE TABLE magazzino (
-	id TEXT DEFAULT (generate_uid(5)),
+	id BIGINT,
 
 	gestore TEXT,
 
@@ -213,7 +213,7 @@ CREATE TABLE magazzino (
 );
 
 CREATE TABLE stock (
-	magazzino TEXT DEFAULT (generate_uid(5)),
+	magazzino BIGINT,
 	ingrediente VARCHAR(20),
 
 	quantita INT,
@@ -226,10 +226,10 @@ CREATE TABLE stock (
 );
 
 CREATE TABLE rifornimento (
-	id TEXT DEFAULT (generate_uid(5)),
+	id BIGINT,
 
 	mittente TEXT,
-	magazzino TEXT,
+	magazzino BIGINT,
 
 	PRIMARY KEY (id),
 
@@ -240,7 +240,7 @@ CREATE TABLE rifornimento (
 );
 
 CREATE TABLE bolla_carico (
-	rifornimento TEXT DEFAULT (generate_uid(5)),
+	rifornimento BIGINT,
 	ingrediente VARCHAR(20),
 	quantita INT,
 
@@ -250,4 +250,3 @@ CREATE TABLE bolla_carico (
 	FOREIGN KEY (rifornimento) REFERENCES rifornimento(id) ON DELETE CASCADE,
 	FOREIGN KEY (ingrediente) REFERENCES ingrediente(nome) ON DELETE CASCADE
 );
-
