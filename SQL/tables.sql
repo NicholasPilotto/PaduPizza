@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS dipendente CASCADE;
 DROP TABLE IF EXISTS formato_pizza CASCADE;
 DROP TABLE IF EXISTS fornitore CASCADE;
 DROP TABLE IF EXISTS ingrediente CASCADE;
-DROP TABLE IF EXISTS km_percorsi CASCADE;
+DROP TABLE IF EXISTS turno CASCADE;
 DROP TABLE IF EXISTS magazzino CASCADE;
 DROP TABLE IF EXISTS ordine CASCADE;
 DROP TABLE IF EXISTS pizza CASCADE;
@@ -154,7 +154,7 @@ CREATE TABLE formato_pizza (
 );
 
 CREATE TABLE pizza (
-	nome VARCHAR(15),
+	nome VARCHAR(25),
 	prezzo NUMERIC(4, 2),
 
 	PRIMARY KEY (nome)
@@ -162,7 +162,7 @@ CREATE TABLE pizza (
 
 CREATE TABLE composizione_ordine (
 	ordine SERIAL,
-	pizza VARCHAR(15),
+	pizza VARCHAR(25),
 	formato_pizza VARCHAR(15),
 
 	aggiunte INT,
@@ -179,8 +179,8 @@ CREATE TABLE composizione_ordine (
 
 
 CREATE TABLE ricetta (
-	pizza VARCHAR(15),
-	ingrediente VARCHAR(15),
+	pizza VARCHAR(25),
+	ingrediente VARCHAR(25),
 
 	PRIMARY KEY (pizza, ingrediente),
 
@@ -241,7 +241,7 @@ CREATE TABLE rifornimento (
 
 CREATE TABLE bolla_carico (
 	rifornimento SERIAL,
-	ingrediente VARCHAR(20),
+	ingrediente VARCHAR(25),
 	quantita INT,
 
 	PRIMARY KEY (rifornimento, ingrediente),
@@ -305,3 +305,4 @@ $body$
 	WHERE dipendente = dip AND date_part('month', turno.data) = mm AND date_part('year', turno.data) = yy
 	GROUP BY dipendente
 $body$ LANGUAGE SQL;
+
