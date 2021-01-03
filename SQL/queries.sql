@@ -31,7 +31,7 @@ FROM month_earning(?, ?)
 --- 3) Query per il calcolo dello stipendio mensile di un dipendente
 SELECT 
 	IF impiego = 'Domiciliare_Macchina' THEN 
-		(stipendio * night_at_work(dipendente.cf, 1) + km(dipendente.cf, 1) * 0.3
+		(stipendio * night_at_work(dipendente.cf, ?) + km(dipendente.cf, ?, ?) * 0.3
 	ELSE (stipendio * night_at_work(dipendente.cf))
 FROM dipendente
 LEFT JOIN pizzeria
@@ -40,4 +40,4 @@ LEFT JOIN km_percorsi
 ON km_percorsi.dipendente = dipendente.cf
 LEFT JOIN stipendio_base
 ON stipendio_base.impiego = dipendente.impiego
-WHERE pizzeria.id = ''
+WHERE pizzeria.id = ?
