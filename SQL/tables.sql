@@ -94,10 +94,10 @@ CREATE TABLE dipendente (
 );
 
 
-CREATE TABLE km_percorsi (
+CREATE TABLE turno (
 	data DATE,
 	dipendente VARCHAR(16),
-	km INT,
+	km INT DEFAULT 0,
 
 	PRIMARY KEY (data, dipendente),
 
@@ -288,4 +288,20 @@ $body$
 	ON pizzeria.id = ordine.pizzeria
 	GROUP BY pizzeria.titolare, date_part('month', scontrino.data)
 	HAVING pizzeria.titolare = tit AND date_part('month', scontrino.data) = mon
+$body$ LANGUAGE SQL;
+
+CREATE OR REPLACE FUNCTION km(dip TEXT, mm INT, yy INT) RETURNS table(km INT) AS
+$body$
+	SELECT SUM(km)
+	FROM turno
+	WHERE date_part('month', turno.data) = mm AND date_part('year', turno.data) = yy AND turno.dipendente = dip
+	GROUP BY turno.dipendente
+$body$ LANGUAGE SQL;
+
+CREATE OR REPLACE FUNCTION night_at_work(dip TEXT, mm INT, yy INT) RETURNS table(km INT) AS
+$body$
+	SELECT COUNT(*)
+	FROM turno
+	WHERE dipendente = dip AND date_part('month', turno.data) = mm AND date_part('year', turno.data) = yy
+	GROUP BY dipendente
 $body$ LANGUAGE SQL;
