@@ -26,4 +26,18 @@ SELECT
 		  WHEN fatturato > 3000 THEN 1000 + fatturato + (fatturato * 0.17) 
 		  WHEN fatturato > 4000 THEN 1000 + fatturato + (fatturato * 0.2)
 	END
-FROM month_earning('GRDMRC80A01G224Z', 1)
+FROM month_earning(?, ?)
+
+--- 3) Query per il calcolo dello stipendio mensile di un dipendente
+SELECT 
+	IF impiego = 'Domiciliare_Macchina' THEN 
+		(stipendio * night_at_work(dipendente.cf, 1) + km(dipendente.cf, 1) * 0.3
+	ELSE (stipendio * night_at_work(dipendente.cf))
+FROM dipendente
+LEFT JOIN pizzeria
+ON pizzeria.id = dipendente.pizzeria
+LEFT JOIN km_percorsi
+ON km_percorsi.dipendente = dipendente.cf
+LEFT JOIN stipendio_base
+ON stipendio_base.impiego = dipendente.impiego
+WHERE pizzeria.id = ''
