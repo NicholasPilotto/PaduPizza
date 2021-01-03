@@ -276,3 +276,16 @@ $body$
 	SELECT (price * 10) / 110 as total
 	FROM total_price(ord);
 $body$ LANGUAGE SQL;
+
+
+CREATE OR REPLACE FUNCTION month_earning(tit TEXT, mon INT) RETURNS table(fatturato NUMERIC(5,2)) AS
+$body$
+	SELECT SUM(scontrino.totale_lordo) AS fatturato_mese
+	FROM ordine
+	LEFT JOIN scontrino
+	ON scontrino.id = ordine.id
+	LEFT JOIN pizzeria
+	ON pizzeria.id = ordine.pizzeria
+	GROUP BY pizzeria.titolare, date_part('month', scontrino.data)
+	HAVING pizzeria.titolare = tit AND date_part('month', scontrino.data) = mon
+$body$ LANGUAGE SQL;
