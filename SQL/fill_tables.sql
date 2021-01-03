@@ -204,6 +204,12 @@ INSERT INTO "cliente" (id,cognome,indirizzo) VALUES
 	('Ferraro','P.O. Box 292, 8152 Cras Avenue');
 
 
+INSERT INTO stipendio_base (impiego, stipendio) VALUES
+	('Domiciliare_Furgone', 25.0);
+	('Domiciliare_Macchina', 20.0);
+	('Cassiere', 30.0);
+	('Pizzaiolo', 40.0);
+	('Aiuto_Pizzaiolo', 35.0);
 
 
 
