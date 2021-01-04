@@ -40,12 +40,12 @@ CREATE TABLE calendario (
 
 CREATE TABLE amministrazione (
 	id TEXT DEFAULT (generate_uid(5)),
-	sito_web VARCHAR(20),
-	mail VARCHAR(20),
-	numero_tel VARCHAR(10),
-	fax VARCHAR(10),
-	indirizzo VARCHAR(20),
-	citta VARCHAR(10),
+	sito_web VARCHAR(20) DEFAULT 'www.padupizza.it/',
+	mail VARCHAR(35),
+	numero_tel VARCHAR(25),
+	fax VARCHAR(15),
+	indirizzo VARCHAR(50),
+	citta VARCHAR(20),
 	provincia VARCHAR(2),
 	
 	PRIMARY KEY (id)
@@ -114,7 +114,7 @@ CREATE TABLE cliente (
 );
 
 CREATE TABLE ingrediente (
-	nome VARCHAR(25),
+	nome VARCHAR(40),
 	conservazione VARCHAR(20),
 
 	PRIMARY KEY (nome)
@@ -154,7 +154,7 @@ CREATE TABLE formato_pizza (
 );
 
 CREATE TABLE pizza (
-	nome VARCHAR(25),
+	nome VARCHAR(35),
 	prezzo NUMERIC(4, 2),
 
 	PRIMARY KEY (nome)
@@ -162,7 +162,7 @@ CREATE TABLE pizza (
 
 CREATE TABLE composizione_ordine (
 	ordine SERIAL,
-	pizza VARCHAR(25),
+	pizza VARCHAR(35),
 	formato_pizza VARCHAR(15),
 
 	aggiunte INT,
@@ -179,8 +179,8 @@ CREATE TABLE composizione_ordine (
 
 
 CREATE TABLE ricetta (
-	pizza VARCHAR(25),
-	ingrediente VARCHAR(25),
+	pizza VARCHAR(35),
+	ingrediente VARCHAR(40),
 
 	PRIMARY KEY (pizza, ingrediente),
 
@@ -214,7 +214,7 @@ CREATE TABLE magazzino (
 
 CREATE TABLE stock (
 	magazzino SERIAL,
-	ingrediente VARCHAR(20),
+	ingrediente VARCHAR(40),
 
 	quantita INT,
 
@@ -241,7 +241,7 @@ CREATE TABLE rifornimento (
 
 CREATE TABLE bolla_carico (
 	rifornimento SERIAL,
-	ingrediente VARCHAR(25),
+	ingrediente VARCHAR(40),
 	quantita INT,
 
 	PRIMARY KEY (rifornimento, ingrediente),
