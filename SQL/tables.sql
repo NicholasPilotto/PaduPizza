@@ -135,6 +135,11 @@ CREATE TABLE ordine (
 	FOREIGN KEY (cliente) REFERENCES cliente(id) ON DELETE CASCADE
 );
 
+CREATE TABLE tipo_pagamento (
+	pagamento VARCHAR(25),
+	PRIMARY KEY pagamento
+);
+
 CREATE TABLE scontrino (
 	id BIGINT,
 	data TIMESTAMP,
@@ -142,7 +147,10 @@ CREATE TABLE scontrino (
 	totale_lordo NUMERIC(5, 2),
 	iva DECIMAL(5, 2),
 
-	PRIMARY KEY (id)
+	PRIMARY KEY (id),
+	
+	CONSTRAINT fk_scontrino
+	FOREIGN KEY (tipo_pagamento) REFERENCES tipo_pagamento(pagamento)
 );
 
 CREATE TABLE formato_pizza (
