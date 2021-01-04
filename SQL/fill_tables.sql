@@ -111,6 +111,10 @@ INSERT INTO formato_pizza VALUES
 	('Integrale', 1.50),
 	('Calzone', 0.50);
 
+/*
+ * Query per l'inserimento di tutti i dati necessari nella tabella cliente
+*/
+
 INSERT INTO cliente (cognome,indirizzo) VALUES 
 	('Rossi','Via Francesco Girardi 128, Padova, PD'),
 	('Villa','Via Sedile di Porto 23, Padova, PD'),
@@ -213,7 +217,9 @@ INSERT INTO cliente (cognome,indirizzo) VALUES
 	('Catalano','Ap #911-5365 Vestibulum, St.'),
 	('Ferraro','P.O. Box 292, 8152 Cras Avenue');
 
-
+/*
+ * Query necessaria per l'inserimento di tutti i dati utili nella tabella stipendio_base
+*/
 INSERT INTO stipendio_base (impiego, stipendio) VALUES
 	('Domiciliare_Furgone', 25.0),
 	('Domiciliare_Macchina', 20.0),
@@ -221,6 +227,9 @@ INSERT INTO stipendio_base (impiego, stipendio) VALUES
 	('Pizzaiolo', 40.0),
 	('Aiuto_Pizzaiolo', 35.0);
 
+/*
+ * Query necessaria per l'inserimento di tutti i dati utili nella tabella calendario
+*/
 INSERT INTO calendario (giorno_chiusura, ora_apertura, ora_chiusura) VALUES 
 	(1, '18:00', '22:00'),
 	(2, '18:00', '22:00'),
@@ -230,6 +239,9 @@ INSERT INTO calendario (giorno_chiusura, ora_apertura, ora_chiusura) VALUES
 	(6, '18:00', '22:00'),
 	(7, '18:00', '22:00');
 
+/*
+ * Query necessaria per l'inserimento di tutti i dati utili nella tabella pizza
+*/
 INSERT INTO pizza (nome, prezzo) VALUES
 	('Marinara', 4.00),
 	('Margherita', 4.50),
@@ -286,6 +298,9 @@ INSERT INTO pizza (nome, prezzo) VALUES
 	('Ricotta e spinaci', 5.50),
 	('Tombolina', 6.00);
 
+/*
+ * Query necessaria per l'inserimento di tutti i dati utili nella tabella ricetta
+*/
 INSERT INTO ricetta (pizza, ingrediente) VALUES
 	('Marinara', 'Pomodoro'),
 	('Marinara', 'Aglio'),
@@ -497,105 +512,136 @@ INSERT INTO ricetta (pizza, ingrediente) VALUES
 	('Tombolina', 'Stracchino'),
 	('Tombolina', 'Rucola');
 
-
+/*
+ * Query necessaria per l'inserimento di tutti i dati utili nella tabella amministrazione
+*/
 INSERT INTO amministrazione (mail, numero_tel, fax, indirizzo, citta, provincia) VALUES 
-('kchelsom0@etsy.com', '822-849-1266', '533-676-6803', '67 Canary Avenue', 'Roma', 'RM'),
-('twagenen1@goodreads.com', '621-112-4035', '852-798-7909', '00 Colorado Park', 'Livorno', 'LI'),
- ('ejeffcoate2@weebly.com', '796-762-9015', '825-885-7459', '09381 Sugar Avenue', 'Roma', 'RM'),
- ('gpriest3@chicagotribune.com', '673-437-2778', '655-148-9173', '14 Lotheville Terrace', 'Trieste', 'tr'),
- ('dhuchot4@cocolog-nifty.com', '254-395-4121', '313-135-2800', '0380 Blue Bill Park Alley', 'Villanova', 'PD'),
- ('lritchie5@infoseek.co.jp', '411-660-8527', '480-476-9127', '7 Delaware Lane', 'Roma', 'RM'),
- ('rglabach6@prweb.com', '477-300-1120', '840-103-5092', '713 Ilene Center', 'Padova', 'PD'),
- ('mgurry7@qq.com', '751-259-4703', '719-386-3238', '441 Charing Cross Terrace', 'Palermo', 'PA'),
- ('mcarwardine8@canalblog.com', '194-906-7868', '120-391-2288', '42 Buell Way', 'Padova', 'PD'),
- ('vosselton9@marketwatch.com', '280-719-6671', '596-748-3523', '0 Park Meadow Junction', 'Messina', 'MS'),
- ('bbeggia@geocities.com', '883-692-7770', '709-533-5316', '76412 Oriole Way', 'Napoli', 'NA'),
- ('dlamartineb@gravatar.com', '379-910-0091', '795-245-1225', '717 Memorial Terrace', 'Genova', 'GE'),
- ('mrimellc@latimes.com', '170-366-2107', '241-601-0616', '9 Burning Wood Terrace', 'Villanova', 'PD'),
- ('mbiermatowiczd@google.com.hk', '785-758-0598', '991-595-3116', '5 Marcy Place', 'Bergamo', 'BE'),
- ('rattriee@tmall.com', '166-296-9502', '230-524-2251', '56371 Prairieview Pass', 'Roma', 'RM'),
- ('mdradeyf@va.gov', '387-311-5713', '799-389-1776', '78032 Dorton Pass', 'Trieste', 'TR'),
- ('rdjurevicg@people.com.cn', '347-628-0304', '232-968-8391', '20843 Pearson Drive', 'Palermo', 'PA'),
- ('dgoodfelloweh@sun.com', '932-254-4438', '678-864-6602', '534 Darwin Plaza', 'Catania', 'CA'),
- ('cmcgreadyi@kickstarter.com', '472-265-7445', '537-801-6256', '7380 Melrose Park', 'Bologna', 'BO'),
- ('zetchellsj@ted.com', '783-104-6014', '618-475-8397', '55 Mayfield Plaza', 'Livorno', 'LI'),
- ('emcquirkk@indiegogo.com', '399-881-1023', '788-208-9897', '760 Parkside Park', 'Brescia', 'BR'),
- ('lwakel@senate.gov', '621-278-6118', '202-404-8003', '5535 Erie Court', 'Messina', 'MS'),
- ('ppidgeleym@ftc.gov', '715-694-7641', '610-405-2101', '76038 Mockingbird Trail', 'Laspezia', 'LS'),
- ('jaldien@arizona.edu', '217-173-4442', '690-811-4269', '08056 Warbler Terrace', 'Catania', 'CA'),
- ('kiannio@theatlantic.com', '909-120-3685', '287-131-8516', '39939 Michigan Trail', 'Roma', 'RM'),
- ('lcurgenvenp@quantcast.com', '831-622-2038', '750-218-4199', '6109 Mariners Cove Trail', 'Milano', 'MI'),
- ('mstowteq@hubpages.com', '711-455-0461', '992-763-6119', '36786 Walton Parkway', 'Napoli', 'NA'),
- ('mcomfordr@bizjournals.com', '450-654-7401', '325-429-1379', '9 Maple Circle', 'Messina', 'MS'),
- ('adibbss@webs.com', '135-272-3260', '194-666-6597', '34277 Rieder Avenue', 'Milano', 'MI'),
- ('ntimminst@time.com', '545-186-1474', '211-866-3888', '14 Fuller Drive', 'Palermo', 'PA'),
- ('jalsopu@independent.co.uk', '709-861-9095', '946-820-3833', '58468 Delaware Junction', 'Padova', 'PD'),
- ('hhawkswoodv@redcross.org', '895-513-4937', '637-987-0660', '3875 Jenifer Street', 'Venezia', 'VE'),
- ('epeeverw@smh.com.au', '998-875-0297', '861-864-7481', '316 Dahle Way', 'Trieste', 'TR'),
- ('ljellymanx@zimbio.com', '807-645-6206', '310-725-0118', '1 Paget Junction', 'Messina', 'MS'),
- ('beddowy@wikipedia.org', '365-602-6482', '911-236-6256', '7301 Emmet Circle', 'Firenze', 'FI'),
- ('adougalz@arstechnica.com', '382-906-6520', '727-204-7898', '03983 Messerschmidt Park', 'Roma', 'RM'),
- ('jwickey10@wiley.com', '208-397-1267', '401-830-7488', '618 Arapahoe Hill', 'Napoli', 'NA'),
- ('draffeorty11@ezinearticles.com', '382-347-7795', '386-140-4768', '592 Green Ridge Avenue', 'Trieste', 'TR'),
- ('mtrevenu12@shutterfly.com', '127-998-5173', '267-750-9019', '8339 Village Terrace', 'Roma', 'RM'),
- ('ccrebott13@pinterest.com', '367-153-3945', '348-690-0619', '81818 Jana Crossing', 'Brescia', 'BR'),
- ('kblaymires14@sfgate.com', '214-206-4630', '550-154-7881', '7810 Nelson Center', 'Catania', 'CA'),
- ('gmcneely15@diigo.com', '102-932-3536', '120-612-9525', '02486 Division Alley', 'Napoli', 'NA'),
- ('jbails16@goo.ne.jp', '300-874-2897', '196-578-5422', '3577 Roxbury Junction', 'Messina', 'MS'),
- ('aizak17@dmoz.org', '814-190-5970', '664-203-0811', '8 Merry Alley', 'Roma', 'RM'),
- ('karnoult18@msu.edu', '415-132-4779', '175-279-9335', '9 Columbus Terrace', 'Torino', 'TO'),
- ('cpickerin19@usgs.gov', '209-552-2827', '197-859-3872', '90 Artisan Plaza', 'Palermo', 'PA'),
- ('aalexandersson1a@edublogs.org', '629-524-3566', '479-129-1657', '7600 Luster Hill', 'Genova', 'GE'),
- ('ghartshorne1b@noaa.gov', '711-338-4957', '648-740-2774', '4 Redwing Circle', 'Milano', 'MI'),
- ('wjaggi1c@vistaprint.com', '993-231-8991', '621-329-5150', '235 Algoma Street', 'Roma', 'RM'),
- ('charms1d@wired.com', '180-401-6512', '906-128-9442', '65 Sauthoff Drive', 'Verona', 'VR'),
- ('hwhiscard1e@gov.uk', '606-239-1920', '188-762-9486', '360 Ridgeway Street', 'Laspezia', 'LS'),
- ('hmartonfi1f@loc.gov', '542-989-6731', '390-981-6183', '191 Dakota Parkway', 'Roma', 'RM'),
- ('nskylett1g@phoca.cz', '702-670-2133', '471-154-6680', '9997 Warrior Avenue', 'Bergamo', 'BE'),
- ('amckinnon1h@google.it', '494-546-2833', '676-285-7986', '6 Roxbury Pass', 'Perugia', 'PR'),
- ('dmateiko1i@sciencedaily.com', '714-181-4706', '637-470-3639', '14 Knutson Court', 'Roma', 'RM'),
- ('ufrankes1j@quantcast.com', '781-923-2242', '398-969-6199', '2388 Nobel Circle', 'Mestre', 'VE'),
- ('candrzejak1k@youku.com', '356-776-3672', '663-346-7719', '1410 Dawn Terrace', 'Padova', 'PD'),
- ('mgreswell1l@tiny.cc', '638-773-9301', '370-201-3374', '74549 Meadow Vale Drive', 'Pescara', 'PE'),
- ('gmcilhagga1m@chicagotribune.com', '544-787-9359', '191-215-5936', '55 Lake View Crossing', 'Messina', 'MS'),
- ('ehurworth1n@cloudflare.com', '847-892-8198', '668-189-2607', '51 Fallview Parkway', 'Salerno', 'SA'),
- ('iladdle1o@webmd.com', '682-233-4794', '650-148-3248', '612 Express Avenue', 'Catania', 'CA'),
- ('acrockford1p@psu.edu', '734-212-2355', '501-297-1586', '0422 Hollow Ridge Way', 'Padova', 'PD'),
- ('dtschirschky1q@bbc.co.uk', '147-346-4160', '820-733-6326', '1 Old Gate Place', 'Messina', 'MS'),
- ('jorable1r@wikipedia.org', '538-692-6244', '779-250-4949', '27 Loomis Plaza', 'Pescara', 'PE'),
- ('wfieldhouse1s@weather.com', '993-975-5001', '561-446-4518', '544 Kenwood Junction', 'Cagliari', 'CG'),
- ('esunner1t@globo.com', '595-428-5452', '885-856-5464', '23866 Maple Wood Junction', 'Milano', 'MI'),
- ('lgilliard1u@squidoo.com', '594-341-7214', '893-699-7046', '74257 Sullivan Court', 'Villanova', 'PD'),
- ('mfeehan1v@github.com', '112-123-7897', '753-423-3518', '06 Stuart Court', 'Messina', 'MS'),
- ('lrosensaft1w@engadget.com', '175-415-1336', '541-688-7950', '4 Acker Place', 'Torino', 'TO'),
- ('hvasiliev1x@oracle.com', '814-246-8256', '710-250-1568', '3 Manitowish Lane', 'Milano', 'MI'),
- ('apeschka1y@home.pl', '598-510-5466', '829-838-0814', '166 Commercial Place', 'Roma', 'RM'),
- ('hkarpinski1z@marriott.com', '889-617-6769', '868-583-3874', '9685 6th Pass', 'Trieste', 'TR'),
- ('sgettins20@squidoo.com', '880-457-0649', '728-926-6643', '1 Esker Pass', 'Laspezia', 'LS'),
- ('dmullin21@blinklist.com', '799-452-1548', '579-897-9639', '6139 Bonner Road', 'Roma', 'RM'),
- ('faps22@pbs.org', '747-460-4822', '771-836-7778', '251 Arapahoe Junction', 'Catania', 'CA'),
- ('bgoodread23@gizmodo.com', '879-725-6681', '763-722-2088', '954 Fairfield Lane', 'Napoli', 'NA'),
- ('gisitt24@paginegialle.it', '180-376-3352', '568-698-2412', '91897 Waxwing Center', 'Reggio Calabria', 'RC'),
- ('fgoudman25@bandcamp.com', '384-192-9411', '394-403-4230', '1930 Nelson Circle', 'Verona', 'VR'),
- ('fblow26@vk.com', '511-417-8249', '525-598-0644', '943 Manitowish Trail', 'Roma', 'RM'),
- ('rrimer27@huffingtonpost.com', '250-818-8428', '432-534-4349', '29319 Anhalt Terrace', 'Ancona', 'AN'),
- ('jsalmen28@statcounter.com', '150-539-9698', '239-714-7297', '5 Sherman Plaza', 'Bergamo', 'BE'),
- ('jredmond29@ft.com', '316-495-8850', '849-994-8723', '64092 Longview Junction', 'Palermo', 'PA'),
- ('ddonnison2a@elegantthemes.com', '954-224-7009', '422-990-5781', '208 Rigney Place', 'Bologna', 'BO'),
- ('tnelthrop2b@blog.com', '466-128-9700', '486-376-4162', '76 Debs Center', 'Cagliari', 'CA'),
- ('ograser2c@sina.com.cn', '665-901-8423', '537-314-7811', '21 Southridge Avenue', 'Bergamo', 'BE'),
- ('myeatman2d@mtv.com', '821-548-1139', '637-891-9632', '761 Canary Road', 'Firenze', 'FI'),
- ('ibolens2e@opera.com', '248-683-3772', '370-732-7870', '58 Cambridge Way', 'Roma', 'RM'),
- ('fendacott2f@ow.ly', '969-334-6379', '517-645-9053', '64537 Thierer Center', 'Salerno', 'SA'),
- ('kcruden2g@mashable.com', '106-698-9687', '155-888-3421', '06599 Oak Valley Pass', 'Messina', 'MS'),
- ('taishford2h@berkeley.edu', '209-654-4523', '994-276-9140', '12 Summerview Point', 'Milano', 'MI'),
- ('seastam2i@ibm.com', '734-136-0416', '349-900-3054', '6 Bayside Road', 'Napoli', 'NA'),
- ('ptidbold2j@youtu.be', '249-993-1599', '203-697-1190', '65750 Helena Street', 'Bologna', 'BO'),
- ('rsnalham2k@addtoany.com', '987-367-6598', '676-570-8681', '8 Swallow Point', 'Livorno', 'LI'),
- ('wcreswell2l@biglobe.ne.jp', '173-799-4078', '155-250-5607', '17892 Farwell Road', 'Mestre', 'VE'),
- ('cdesesquelle2m@163.com', '707-804-3064', '433-746-1159', '77 Everett Point', 'Catania', 'CA'),
- ('fshere2n@unesco.org', '724-628-9301', '406-975-8371', '02 Nelson Place', 'Reggio Calabria', 'RC'),
- ('cskehan2o@craigslist.org', '901-515-6354', '683-573-1392', '27472 Walton Circle', 'Genova', 'GE'),
- ('fmockford2p@eventbrite.com', '810-639-8434', '272-118-5727', '963 Anniversary Center', 'Napoli', 'NA'),
- ('rhalladey2q@goo.gl', '512-307-3797', '976-798-5636', '7648 Cherokee Lane', 'Padova', 'PD'),
- ('rsheard2r@bloomberg.com', '921-124-7516', '493-698-1137', '06 International Hill', 'Milano', 'MI');
+	('padupizza.padova@padupizza.it', '36129355654', '8231434287', 'Via Corso Stati Uniti, 15', 'Padova', 'PD'),
+	('padupizza.venezia@padupizza.it', '4977997054', '7362827355', 'Via dell''Acqua, 7', 'Venezia', 'VE'),
+	('padupizza.vicenza@padupizza.it', '9702131855', '3372187514', 'Via del Commercio, 22', 'Vicenza', 'VI'),
+	('padupizza.verona@padupizza.it', '7770416065', '7880975558', 'Viale S. Giacomo, 67', 'Verona', 'VR'),
+	('padupizza.rovigo@padupizza.it', '3191853330', '1052759226', 'Via Metteotti, 123', 'Rovigo', 'RO'),
+	('padupizza.belluno@padupizza.it', '6726343802', '0682376900', 'Via Verdi, 85', 'Belluno', 'BL'),
+	('padupizza.treviso@padupizza.it', '3470881897', '4146114350', 'Via Radicchio, 248', 'Treviso', 'TV');
+	
+
+	/*
+	 * Query necessaria per l'inserimento di tutti i dati utili nella tabella titolare
+	*/
+	INSERT INTO titolare (cf, nome, cognome) VALUES 
+	('FSOQNT10R24L736G', 'Quinto', 'Fois'),
+	('FRNNNA09C53F839C', 'Anna', 'Fiorini'),
+	('FRGPLT07P05L219P', 'Ippolito', 'Frigerio'),
+	('FBBMRL03B66L736M', 'Marilu', 'Fabbri'),
+	('MRSYRA07E66A662N', 'Yara', 'Amoruso'),
+	('RSSGDL08P49C351J', 'Guendalina', 'Rossa'),
+	('GRZCMN03D43G273F', 'Clementina', 'Graziano'),
+	('MTTDTR10R04C351M', 'Demetrio', 'Motta'),
+	('BRNTLL08P15G273S', 'Tullio', 'Brandi'),
+	('MLNCTT02R60F205V', 'Cosetta', 'Milone'),
+	('MRNMCH03B08D969X', 'Melchiorre', 'Marano'),
+	('FRLDNS02B06L736J', 'Dennis', 'Furlan'),
+	('GDCCLR05M46F205I', 'Clara', 'Giudici'),
+	('RSOMLR08T58A662N', 'Marialaura', 'Rosi'),
+	('GRDFBN07P18H501E', 'Fabiano', 'Giordani'),
+	('RCCSRL02A70H501G', 'Smeralda', 'Rocco'),
+	('LCNCTN10L25F205T', 'Costantino', 'Luciani'),
+	('MSSVTT08L59F839H', 'Violetta', 'Massa'),
+	('SCCDTL05M57L736J', 'Donatella', 'Secci'),
+	('MTRTZN08P16G273X', 'Tiziano', 'Matera'),
+	('PZZZEI03R31D969D', 'Ezio', 'Pizzi'),
+	('GRLSBN10M44L219G', 'Sabina', 'Grilli'),
+	('PLMCRN10T58G273O', 'Caterina', 'Palma'),
+	('PGNDNY06T12D969Y', 'Danny', 'Pagani'),
+	('CRMGSY03C63C351O', 'Giusy', 'Carminati'),
+	('NNNCMN10D01H501J', 'Carmine', 'Iannone'),
+	('NDRBTE02R49L736C', 'Beata', 'Andreoli'),
+	('DSTCTN07B46H501L', 'Costanza', 'Distefano'),
+	('LNGSNN07R45G273L', 'Susanna', 'Longo'),
+	('MLNLVR05C08G273M', 'Alvaro', 'Molinari'),
+	('CCCGNN06S30L736Q', 'Giovanni', 'Cicci'),
+	('LRNRCC08M60H501P', 'Rebecca', 'Lorenzi'),
+	('BNCRCC09C04F839K', 'Rocco', 'Bianco'),
+	('GTTCRS10A56D612R', 'Clarissa', 'Gattini'),
+	('ZCCCST02R43H501B', 'Cristina', 'Zucchi'),
+	('BLTMTN04P58D969R', 'Martina', 'Belotti'),
+	('CPPFLV07H19H501Q', 'Fulvio', 'Cappelletti'),
+	('CRLRRT03P06F839K', 'Roberto', 'Carella'),
+	('MLNVSS09R66A944R', 'Vanessa', 'Milone'),
+	('RNDMLN08P24L219O', 'Emiliano', 'Randazzo'),
+	('TNOVLR09P03F839S', 'Valerio', 'Toni');
+
+	/*
+	 * Query necessaria per l'inserimento dei dati utili nella tabella pizzeria
+	*/
+INSERT INTO pizzeria (calendario, titolare, amministrazione, indirizzo, citta, provincia, numero_tel) VALUES
+	(3, 'MTTDTR10R04C351M', (SELECT id FROM amministrazione WHERE provincia = 'PD'), 'Via Carlo Alberto, 91', 'Padova', 'PD', '8436829189'),
+	(3, 'RNDMLN08P24L219O', (SELECT id FROM amministrazione WHERE provincia = 'BL'), 'Via Montegrappa, 23', 'Sedico', 'BL', '4746914853'),
+	(2, 'BLTMTN04P58D969R', (SELECT id FROM amministrazione WHERE provincia = 'VI'), 'Via San Antonio, 6', 'Vicenza', 'VI', '4217365014'),
+	(1, 'MLNVSS09R66A944R', (SELECT id FROM amministrazione WHERE provincia = 'VE'), 'Via Guizze, 22', 'Mira', 'VE', '5028946910'),
+	(1, 'LRNRCC08M60H501P', (SELECT id FROM amministrazione WHERE provincia = 'PD'), 'Via Mantegna, 50', 'Campodoro', 'PD', '5676162557'),
+	(2, 'LNGSNN07R45G273L', (SELECT id FROM amministrazione WHERE provincia = 'VI'), 'Via San Andrea, 3', 'Creazzo','VI', '6413015460'),
+	(4, 'RNDMLN08P24L219O', (SELECT id FROM amministrazione WHERE provincia = 'VR'), 'Via Casa Grande, 1', 'Caselle', 'VR', '9843444410'),
+	(2, 'MRSYRA07E66A662N', (SELECT id FROM amministrazione WHERE provincia = 'PD'), 'Via Giotto, 74', 'Limena', 'PD', '9735980657'),
+	(4, 'BRNTLL08P15G273S', (SELECT id FROM amministrazione WHERE provincia = 'TV'), 'Via Alberti, 64', 'Ponzano','TV', '6117664703'),
+	(4, 'CRLRRT03P06F839K', (SELECT id FROM amministrazione WHERE provincia = 'PD'), 'Vicolo Garibaldi, 1', 'Mestrino', 'PD', '5619151170'),
+	(3, 'FRLDNS02B06L736J', (SELECT id FROM amministrazione WHERE provincia = 'TV'), 'Via 25 Aprile, 12', 'Dosson', 'TV', '4791987322'),
+	(2, 'ZCCCST02R43H501B', (SELECT id FROM amministrazione WHERE provincia = 'TV'), 'Viale Rossi, 20', 'Carbonera', 'TV', '5554459757'),
+	(3, 'BLTMTN04P58D969R', (SELECT id FROM amministrazione WHERE provincia = 'VR'), 'Via Leopardi, 25', 'Marchesino', 'VR', '0494260065'),
+	(1, 'BNCRCC09C04F839K', (SELECT id FROM amministrazione WHERE provincia = 'RO'), 'Via Dannunzio, 15', 'Buso', 'RO', '6674416791'),
+	(1, 'MSSVTT08L59F839H', (SELECT id FROM amministrazione WHERE provincia = 'PD'), 'Via Marconi, 2C', 'Cittadella', 'PD', '5680556286'),
+	(3, 'MLNVSS09R66A944R', (SELECT id FROM amministrazione WHERE provincia = 'VI'), 'Via Trento, 13B', 'Quinto Vicentino', 'VI', '8095191777'),
+	(2, 'BRNTLL08P15G273S', (SELECT id FROM amministrazione WHERE provincia = 'VI'), 'Via Nogarasse, 2', 'Bertesina', 'VI', '4185865000'),
+	(1, 'TNOVLR09P03F839S', (SELECT id FROM amministrazione WHERE provincia = 'RO'), 'Via Risorgimento, 17', 'Arginello', 'RO', '8124742421'),
+	(4, 'CRLRRT03P06F839K', (SELECT id FROM amministrazione WHERE provincia = 'RO'), 'Via Traversagni, 25', 'Mardimago', 'RO', '1661849583'),
+	(4, 'LRNRCC08M60H501P', (SELECT id FROM amministrazione WHERE provincia = 'VI'), 'Via Filzi, 38C', 'Vigardolo', 'VI', '7963563632'),
+	(1, 'GRZCMN03D43G273F', (SELECT id FROM amministrazione WHERE provincia = 'VI'), 'Via Europa, 12H', 'Ospedaletto', 'VI', '0621926913'),
+	(4, 'MLNLVR05C08G273M', (SELECT id FROM amministrazione WHERE provincia = 'BL'), 'Via Rometta, 108', 'Sopracroda', 'BL', '3430727641'),
+	(2, 'MTTDTR10R04C351M', (SELECT id FROM amministrazione WHERE provincia = 'PD'), 'Via Monte Grappa, 2', 'Campodarsego', 'PD', '2520215915'),
+	(1, 'MRSYRA07E66A662N', (SELECT id FROM amministrazione WHERE provincia = 'TV'), 'Viale della Vittora, 1', 'Boiago', 'TV', '4657348762'),
+	(5, 'FBBMRL03B66L736M', (SELECT id FROM amministrazione WHERE provincia = 'VI'), 'Via Lamormora, 23', 'Cavazzale', 'VI','0292057259'),
+	(3, 'FSOQNT10R24L736G', (SELECT id FROM amministrazione WHERE provincia = 'RO'), 'Via Alberie, 38', 'Stanghella', 'RO', '8009591056'),
+	(3, 'GRLSBN10M44L219G', (SELECT id FROM amministrazione WHERE provincia = 'VE'), 'Via Cassola, 8', 'Mestre','VE','1395262482'),
+	(1, 'LCNCTN10L25F205T', (SELECT id FROM amministrazione WHERE provincia = 'VE'), 'Via Campolongo, 83', 'Dolo', 'VE', '7583309297'),
+	(1, 'RSOMLR08T58A662N', (SELECT id FROM amministrazione WHERE provincia = 'TV'), 'Via Leonardo, 65', 'Loria', 'TV', '9779985546'),
+	(2, 'LNGSNN07R45G273L', (SELECT id FROM amministrazione WHERE provincia = 'VE'), 'Via Sole, 34', 'Caorle', 'VE', '4211459736'),
+	(1, 'CCCGNN06S30L736Q', (SELECT id FROM amministrazione WHERE provincia = 'PD'), 'Via Vittorio Emanuele, 200', 'Cadoneghe', 'PD', '9349611179'),
+	(1, 'PGNDNY06T12D969Y', (SELECT id FROM amministrazione WHERE provincia = 'VI'), 'Via dei Martiri, 34', 'Marola', 'VI', '3677188546'),
+	(2, 'FBBMRL03B66L736M', (SELECT id FROM amministrazione WHERE provincia = 'VE'), 'Via Cagliari, 15', 'Marghera', 'VE', '0584908868'),
+	(3, 'NDRBTE02R49L736C', (SELECT id FROM amministrazione WHERE provincia = 'RO'), 'Via Rosa, 57', 'Rovigo', 'RO', '1782909803'),
+	(3, 'DSTCTN07B46H501L', (SELECT id FROM amministrazione WHERE provincia = 'BL'), 'Via Giove, 78', 'Limana', 'BL', '8067921622'),
+	(5, 'ZCCCST02R43H501B', (SELECT id FROM amministrazione WHERE provincia = 'RO'), 'Via Piave, 5', 'Villamarzana', 'RO', '1611498210'),
+	(4, 'LRNRCC08M60H501P', (SELECT id FROM amministrazione WHERE provincia = 'VE'), 'Via Genova, 14', 'Venezia', 'VE', '9299280539'),
+	(3, 'CCCGNN06S30L736Q', (SELECT id FROM amministrazione WHERE provincia = 'VR'), 'Via Monte Asolone, 91', 'Sommavalle','VR', '0662725047'),
+	(1, 'GDCCLR05M46F205I', (SELECT id FROM amministrazione WHERE provincia = 'VR'), 'Via Mira, 32', 'Giaron', 'VR', '5915846846'),
+	(5, 'PGNDNY06T12D969Y', (SELECT id FROM amministrazione WHERE provincia = 'VE'), 'Via Foscolo, 8A', 'Meolo', 'VE', '4633697557'),
+	(5, 'MRSYRA07E66A662N', (SELECT id FROM amministrazione WHERE provincia = 'VE'), 'Via Cesare Battisti, 2', 'Passarella', 'VE', '4878320361'),
+	(1, 'FRLDNS02B06L736J', (SELECT id FROM amministrazione WHERE provincia = 'VR'), 'Via Luna, 47', 'Novaglie', 'VR', '3176886391'),
+	(4, 'CRLRRT03P06F839K', (SELECT id FROM amministrazione WHERE provincia = 'TV'), 'Via Marte, 74', 'Istrana', 'TV', '5094008093'),
+	(4, 'TNOVLR09P03F839S', (SELECT id FROM amministrazione WHERE provincia = 'VE'), 'Via Serato, 212', 'San Donà di Piave', 'VE', '6228365488'),
+	(6, 'PGNDNY06T12D969Y', (SELECT id FROM amministrazione WHERE provincia = 'BL'), 'Viale Europa, 67', 'Feltre', 'BL', '6545174330'),
+	(1, 'CPPFLV07H19H501Q', (SELECT id FROM amministrazione WHERE provincia = 'RO'), 'Via Rovigo, 3', 'Onari', 'RO', '2453352648'),
+	(1, 'RNDMLN08P24L219O', (SELECT id FROM amministrazione WHERE provincia = 'BL'), 'Via Municipio 11', 'Castion', 'BL', '7624263029'),
+	(3, 'FSOQNT10R24L736G', (SELECT id FROM amministrazione WHERE provincia = 'PD'), 'Via S. Pio X, 18', 'Abano Terme', 'PD', '6484917950'),
+	(1, 'GRZCMN03D43G273F', (SELECT id FROM amministrazione WHERE provincia = 'VR'), 'Via Roma, 123', 'Forette', 'VR', '0376541439'),
+	(3, 'BNCRCC09C04F839K', (SELECT id FROM amministrazione WHERE provincia = 'TV'), 'Via Ragazzi, 53', 'Paese', 'TV', '5331743600'),
+	(5, 'FRGPLT07P05L219P', (SELECT id FROM amministrazione WHERE provincia = 'VR'), 'Via Paolini, 86', 'Corno Alto', 'VR', '4723643593'),
+	(5, 'CRLRRT03P06F839K', (SELECT id FROM amministrazione WHERE provincia = 'PD'), 'Via Beato Pellegrino, 11', 'Vigodarzere', 'PD', '1680244883'),
+	(3, 'MLNLVR05C08G273M', (SELECT id FROM amministrazione WHERE provincia = 'RO'), 'Via Gialla, 48', 'Sarzano','RO', '1518937351'),
+	(2, 'FBBMRL03B66L736M', (SELECT id FROM amministrazione WHERE provincia = 'TV'), 'Via G. Galilei, 56', 'Treviso', 'TV', '8472832263'),
+	(3, 'CPPFLV07H19H501Q', (SELECT id FROM amministrazione WHERE provincia = 'VR'), 'Via Vicenza, 21', 'Verona', 'VR', '4308896148'),
+	(2, 'MTTDTR10R04C351M', (SELECT id FROM amministrazione WHERE provincia = 'TV'), 'Via Mazzini, 51', 'Castelfranco Veneto', 'TV', '6760495504'),
+	(1, 'BNCRCC09C04F839K', (SELECT id FROM amministrazione WHERE provincia = 'RO'), 'Viale Pio X, 1', 'Grompo', 'RO', '7680907281'),
+	(5, 'RNDMLN08P24L219O', (SELECT id FROM amministrazione WHERE provincia = 'TV'), 'Via Pasubio, 8C', 'Marcon', 'TV', '9048663539'),
+	(1, 'LNGSNN07R45G273L', (SELECT id FROM amministrazione WHERE provincia = 'PD'), 'Via Grigliano, 102', 'Camposampiero','PD', '9969519017'),
+	(2, 'GTTCRS10A56D612R', (SELECT id FROM amministrazione WHERE provincia = 'BL'), 'Via Garda, 10', 'Pedavena', 'BL', '9860589758'),
+	(1, 'MRNMCH03B08D969X', (SELECT id FROM amministrazione WHERE provincia = 'BL'), 'Via Rosa, 57', 'Belluno', 'BL', '4240802513'),
+	(3, 'GRZCMN03D43G273F', (SELECT id FROM amministrazione WHERE provincia = 'VR'), 'Via Bartoni, 6', 'Raldon', 'VR', '8336272632'),
+	(3, 'FBBMRL03B66L736M', (SELECT id FROM amministrazione WHERE provincia = 'BL'), 'Via Rossa, 28', 'Collungo','BL', '0403241715'),
+	(1, 'GRLSBN10M44L219G', (SELECT id FROM amministrazione WHERE provincia = 'VI'), 'Via Sicura, 45', 'Nogarazza', 'VI', '5585837265'),
+	(3, 'RSSGDL08P49C351J', (SELECT id FROM amministrazione WHERE provincia = 'RO'), 'Via Rondiello, 7D', 'Bosaro', 'RO', '0178442672'),
+	(4, 'CRLRRT03P06F839K', (SELECT id FROM amministrazione WHERE provincia = 'BL'), 'Via Bellinghiera, 91', 'Follina', 'BL', '8543724320'),
+	(3, 'LNGSNN07R45G273L', (SELECT id FROM amministrazione WHERE provincia = 'VI'), 'Via Villetta, 91B', 'San Zeno', 'VI', '1574291852'),
+	(4, 'RSSGDL08P49C351J', (SELECT id FROM amministrazione WHERE provincia = 'BL'), 'Via San Marco, 16', 'Revine', 'BL', '2047215533'),
+	(1, 'MRSYRA07E66A662N', (SELECT id FROM amministrazione WHERE provincia = 'VR'), 'Via Mantegna, 21E', 'Rizza', 'VR', '7689122113'),
+	(4, 'BRNTLL08P15G273S', (SELECT id FROM amministrazione WHERE provincia = 'VE'), 'Via Peraro, 2B', 'Jesolo', 'VE', '9809984297');
