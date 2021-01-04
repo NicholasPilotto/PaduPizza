@@ -311,20 +311,16 @@ $trig$ LANGUAGE plpgsql;
 CREATE TRIGGER create_new_magazzino AFTER INSERT ON pizzeria
 	FOR EACH ROW EXECUTE PROCEDURE create_magazzino();
 
-CREATE OR REPLACE FUNCTION fat_per_month(mm INT) RETURNS table(piz TEXT, fat NUMERIC) AS
+CREATE OR REPLACE FUNCTION fat_per_month(mm INT) RETURNS table(piz TEXT, fat NUMERIC, prov TEXT) AS
 $body$
-	SELECT pizzeria.id AS pizzeria, SUM(scontrino.totale_lordo) AS fatturato
+	SELECT pizzeria.id AS pizzeria, SUM(scontrino.totale_lordo) AS fatturato, amministrazione.provincia
 	FROM scontrino
 	LEFT JOIN ordine
 	ON ordine.id = scontrino.id
 	LEFT JOIN pizzeria
 	ON pizzeria.id = ordine.pizzeria
+	LEFT JOIN amministrazione
+	ON amministrazione.id = pizzeria.amministrazione
 	WHERE date_part('month', scontrino.data) = mm
-	GROUP BY pizzeria.id
-$body$ LANGUAGE SQL;
-
-CREATE OR REPLACE FUNCTION fat_avg_per_month(mm INT) RETURNS table(fat NUMERIC) AS
-$body$
-	SELECT AVG(fat)::NUMERIC(5, 2)
-	FROM fat_per_month(mm)
+	GROUP BY pizzeria.id, amministrazione.provincia
 $body$ LANGUAGE SQL;
