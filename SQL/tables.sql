@@ -209,8 +209,7 @@ CREATE TABLE magazzino (
 	PRIMARY KEY (id),
 
 	CONSTRAINT fk_magazzino
-	FOREIGN KEY (gestore) REFERENCES amministrazione(id) ON DELETE CASCADE,
-	FOREIGN KEY (gestore) REFERENCES pizzeria(id) ON DELETE CASCADE
+	FOREIGN KEY (gestore) REFERENCES amministrazione(id), pizzeria(id) ON DELETE CASCADE
 );
 
 CREATE TABLE stock (
@@ -307,3 +306,11 @@ $body$
 	GROUP BY dipendente
 $body$ LANGUAGE SQL;
 
+CREATE OR REPLACE FUNCTION create_magazzino() RETURNS trigger AS $trig$
+    BEGIN
+        INSERT INTO magazzino (gestore) VALUES (NEW.id);
+    END;
+$trig$ LANGUAGE plpgsql;
+
+CREATE TRIGGER create_new_magazzino AFTER INSERT ON pizzeria
+	FOR EACH ROW EXECUTE PROCEDURE create_magazzino();
