@@ -11,6 +11,17 @@
  *    MACCHINA DELL'UTENTE UTILIZZATORE RAPPRESENTANTE LA DIRECTORY MADRE, CONTENENTE LA DIRECTORY PADUPIZZA.
 */
 
+/*
+ * Query necessaria per l'inserimento di tutti i dati utili nella tabella calendario
+*/
+INSERT INTO calendario (id, giorno_chiusura, ora_apertura, ora_chiusura) VALUES 
+	(1, 1, '18:00', '22:00'),
+	(2, 2, '18:00', '22:00'),
+	(3, 3, '18:00', '22:00'),
+	(4, 4, '18:00', '22:00'),
+	(5, 5, '18:00', '22:00'),
+	(6, 6, '18:00', '22:00'),
+	(7, 7, '18:00', '22:00');
 
 /*
  * Query da utilizzare per l'inserimento di tutti i dati necessari nella tabella contenente gli ingredienti utili per
@@ -233,18 +244,6 @@ INSERT INTO tipo_pagamento (pagamento) VALUES
 	('Contanti'),
 	('Bancomat'),
 	('Carta di Credito');
-
-/*
- * Query necessaria per l'inserimento di tutti i dati utili nella tabella calendario
-*/
-INSERT INTO calendario (giorno_chiusura, ora_apertura, ora_chiusura) VALUES 
-	(1, '18:00', '22:00'),
-	(2, '18:00', '22:00'),
-	(3, '18:00', '22:00'),
-	(4, '18:00', '22:00'),
-	(5, '18:00', '22:00'),
-	(6, '18:00', '22:00'),
-	(7, '18:00', '22:00');
 
 /*
  * Query necessaria per l'inserimento di tutti i dati utili nella tabella pizza
@@ -652,3 +651,74 @@ INSERT INTO pizzeria (calendario, titolare, amministrazione, indirizzo, citta, p
 	(4, 'RSSGDL08P49C351J', (SELECT id FROM amministrazione WHERE provincia = 'BL'), 'Via San Marco, 16', 'Revine', 'BL', '2047215533'),
 	(1, 'MRSYRA07E66A662N', (SELECT id FROM amministrazione WHERE provincia = 'VR'), 'Via Mantegna, 21E', 'Rizza', 'VR', '7689122113'),
 	(4, 'BRNTLL08P15G273S', (SELECT id FROM amministrazione WHERE provincia = 'VE'), 'Via Peraro, 2B', 'Jesolo', 'VE', '9809984297');
+
+/*
+ * Query necessaria per l'inserimento di tutti i dati utili nella tabella dipendente
+*/
+INSERT INTO dipendente (cf, nome, cognome, data_assunzione, impiego, pizzeria) VALUES
+	('CSTMLC06R61H501S', 'Marialuce', 'Costanzo', '02-23-2019', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Carlo Alberto, 91' LIMIT 1)),
+	('MTRNLD10R58F205Q', 'Nilde', 'Matera', '06-10-2019', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Vicenza, 21' LIMIT 1)),
+	('MGGMRN04M61L736R', 'Morena', 'Maggioni', '10-05-2019', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Campolongo, 83' LIMIT 1)),
+	('STFLDA08T30L219X', 'Aldo', 'Stefani', '07-12-2015', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Carlo Alberto, 91' LIMIT 1)),
+	('BBTJMS07T12L736E', 'James', 'Abbata', '11-30-2018', 'Aiuto_Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Carlo Alberto, 91' LIMIT 1)),
+	('CTLCTN03A21L736G', 'Costanzo', 'Catalano', '07-11-2019', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Rosa, 57' LIMIT 1)),
+	('RSSWDY03L64L736E', 'Wendy', 'Rossa', '08-15-2020', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Rosa, 57' LIMIT 1)),
+	('SMTDLN10D46A662G', 'Adelina', 'Smith', '12-08-2016', 'Aiuto_Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Rosa, 57' LIMIT 1)),
+	('PSQMYA04D62A944Q', 'Maya', 'Pasquali', '07-12-2017', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Campolongo, 83' LIMIT 1)),
+	('DNFLFA09M29G273D', 'Alfio', 'Donofrio', '09-25-2019', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Vicenza, 21' LIMIT 1)),
+	('ZCCNRO03H43C351H', 'Nora', 'Zucchi', '01-12-2013', 'Aiuto_Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Campolongo, 83' LIMIT 1)),
+	('DROMHL05T01G273Q', 'Michelangelo', 'Doria', '09-14-2017', 'Aiuto_Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Rosa, 57' LIMIT 1)),
+	('VCCRND05B11F839I', 'Armando', 'Vaccari', '07-12-2015', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Campolongo, 83' LIMIT 1)),
+	('PCCRNI03P58L219U', 'Irina', 'Piccolo', '08-12-2016', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Mira, 32' LIMIT 1)),
+	('PLLDVI03C67L736N', 'Diva', 'Pellegrini', '04-29-2016', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Vicenza, 21' LIMIT 1)),
+	('RNCRGR07L28F205B', 'Roggero', 'Ronchi', '05-28-2015', 'Aiuto_Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Vicenza, 21' LIMIT 1)),
+	('DLRMNL03P42C351V', 'Manuela', 'Dilorenzo', '05-20-2018', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Luna, 47' LIMIT 1)),
+	('FDDNSC10C69D612C', 'Natascia', 'Fadda', '12-10-2020', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Luna, 47' LIMIT 1)),
+	('RZZLRA04R64F205W', 'Lara', 'Rizzo', '12-12-2017', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Mira, 32' LIMIT 1)),
+	('VLSSVT07H21H501X', 'Salvatore', 'Valsecchi', '02-26-2018', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Viale della Vittora, 1' LIMIT 1)),
+	('RCRMGR02R58H501N', 'Mariagrazia', 'Arcuri', '10-12-2020', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Viale della Vittora, 1' LIMIT 1)),
+	('BRNMRT09S50L736U', 'Mirta', 'Brandi', '07-12-2018', 'Aiuto_Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Viale della Vittora, 1' LIMIT 1)),
+	('NVAVSS02E58D612X', 'Vanessa', 'Nava', '09-17-2016', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Luna, 47' LIMIT 1)),
+	('VLNRSY07T61A944A', 'Rosy', 'Valente', '01-02-2011', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Nogarasse, 2' LIMIT 1)),
+	('GDUGRG06P03D969S', 'Giorgio', 'Guida', '04-12-2015', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Nogarasse, 2' LIMIT 1)),
+	('VLNCRL02C09A944V', 'Carlo', 'Valente', '01-13-2017', 'Aiuto_Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Luna, 47' LIMIT 1)),
+	('LRNSBN03P56A944D', 'Sabina', 'Lorenzi', '10-01-2017', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Viale della Vittora, 1' LIMIT 1)),
+	('BLLMAI02B68G273L', 'Maia', 'Belloni', '07-02-2015', 'Aiuto_Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Nogarasse, 2' LIMIT 1)),
+	('LFRGNN10M27H501J', 'Gianni', 'Alfieri', '04-22-2016', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Carlo Alberto, 91' LIMIT 1)),
+	('LLAFRU03T01F839L', 'Furio', 'Aiello', '12-23-2014', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Carlo Alberto, 91' LIMIT 1)),
+	('FRNDMN07T11C351R', 'Demian', 'Fiorentino', '06-30-2016', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Mira, 32' LIMIT 1)),
+	('CRMLEI07B07H501J', 'Elio', 'Carminati', '07-12-2012', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Rosa, 57' LIMIT 1)),
+	('DGRPIA10S41D612R', 'Pia', 'Digiorgio', '03-11-2019', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Rosa, 57' LIMIT 1)),
+	('PLNGZN02A05A662P', 'Graziano', 'Paolini', '03-08-2014', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Campolongo, 83' LIMIT 1)),
+	('MRTLHR06T26A662C', 'Alighieri', 'Moretto', '07-12-2015', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Vicenza, 21' LIMIT 1)),
+	('RBRDTR02S19L219W', 'Demetrio', 'Roberti', '10-31-2020', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Vicenza, 21' LIMIT 1)),
+	('NPLLEI04T26C351N', 'Elio', 'Napoli', '07-18-2015', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Campolongo, 83' LIMIT 1)),
+	('CSTRNR08D14D969M', 'Raniero', 'Costanzo', '07-12-2010', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Campolongo, 83' LIMIT 1)),
+	('PRGLLA10P53H501H', 'Laila', 'Perego', '07-12-2015', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Mira, 32' LIMIT 1)),
+	('CRLVNI04E21D612L', 'Ivano', 'Carlini', '11-22-2020', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Mira, 32' LIMIT 1)),
+	('MLTMGN07C21D612S', 'Morgan', 'Molteni', '01-12-2020', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Viale della Vittora, 1' LIMIT 1)),
+	('CRLGRR07D09L219B', 'Guerriero', 'Carlucci', '06-12-2012', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Luna, 47' LIMIT 1)),
+	('VNTLLL04C22C351Q', 'Lello', 'Ventura', '02-24-2018', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Nogarasse, 2' LIMIT 1)),
+	('PSNFNC09L08A944F', 'Franco', 'Pisano', '03-26-2018', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Nogarasse, 2' LIMIT 1)),
+	('DNADMN05R09L219Y', 'Damiano', 'Dani', '09-19-2012', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Viale della Vittora, 1' LIMIT 1)),
+	('MSNDNT09S08A662J', 'Diamante', 'Masini', '03-12-2020', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Nogarasse, 2' LIMIT 1));
+
+
+/* BEGIN;
+WITH 
+	_id AS (
+		INSERT INTO ordine (ora, dipendente, pizzeria, cliente) VALUES ('18:00', 'DNADMN05R09L219Y', (SELECT pizzeria FROM dipendente WHERE cf = 'DNADMN05R09L219Y'), 1) RETURNING id
+	),
+	_comp AS (
+		INSERT INTO composizione_ordine (ordine, pizza, formato_pizza, aggiunte, rimozioni, ripetizioni) VALUES 
+		((SELECT id FROM _id), 'Margherita', 'Normale', 0, 0, 1),
+		((SELECT id FROM _id), 'Tombolina', 'Normale', 0, 0, 2),
+		((SELECT id FROM _id), 'Sfilacci', 'Famiglia', 0, 0, 1)
+	)
+
+INSERT INTO scontrino (id, data, tipo_pagamento, totale_lordo, iva) VALUES ((SELECT id FROM _id), '01-01-2021', 'Contanti', 0,0);
+
+UPDATE scontrino SET totale_lordo = (SELECT * FROM total_price((SELECT MAX(id) FROM scontrino))) WHERE id = (SELECT MAX(id) FROM scontrino);
+UPDATE scontrino SET iva = (SELECT * FROM total_vat((SELECT MAX(id) FROM scontrino))) WHERE id = (SELECT MAX(id) FROM scontrino);
+
+COMMIT; */
