@@ -53,7 +53,7 @@ CREATE TABLE amministrazione (
 
 CREATE TABLE pizzeria (
 	id TEXT DEFAULT (generate_uid(5)),
-	indirizzo VARCHAR(20),
+	indirizzo VARCHAR(40),
 	citta VARCHAR(20),
 	provincia VARCHAR(2),
 	numero_tel VARCHAR(10),
@@ -209,7 +209,8 @@ CREATE TABLE magazzino (
 	PRIMARY KEY (id),
 
 	CONSTRAINT fk_magazzino
-	FOREIGN KEY (gestore) REFERENCES fornitore(id) ON DELETE CASCADE
+	FOREIGN KEY (gestore) REFERENCES amministrazione(id) ON DELETE CASCADE,
+	FOREIGN KEY (gestore) REFERENCES pizzeria(id) ON DELETE CASCADE
 );
 
 CREATE TABLE stock (
