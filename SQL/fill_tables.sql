@@ -16,7 +16,11 @@
  * Query da utilizzare per l'inserimento di tutti i dati necessari nella tabella contenente gli ingredienti utili per
  * la creazione delle pizze
 */
-INSERT INTO ingrediente (nome, conservazione) VALUES 
+INSERT INTO ingrediente (nome, conservazione) VALUES
+	('Farina', 'Fuori frigo'),
+	('Palline di pasta normale', 'Frigo'),
+	('Palline di pasta famiglia', 'Frigo'),
+	('Palline di pasta integrale', 'Frigo'),
 	('Pomodoro', 'Fuori frigo'),
 	('Origano', 'Fuori frigo'),
 	('Aglio', 'Fuori frigo'),
@@ -104,6 +108,7 @@ INSERT INTO formato_pizza VALUES
 	('Normale', 0.00),
 	('Famiglia', 1.00),
 	('Doppia pasta', 1.50),
+	('Integrale', 1.50),
 	('Calzone', 0.50);
 
 INSERT INTO cliente (cognome,indirizzo) VALUES 
