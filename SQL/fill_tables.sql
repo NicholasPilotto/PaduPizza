@@ -114,7 +114,6 @@ INSERT INTO formato_pizza VALUES
 /*
  * Query per l'inserimento di tutti i dati necessari nella tabella cliente
 */
-
 INSERT INTO cliente (cognome,indirizzo) VALUES 
 	('Rossi','Via Francesco Girardi 128, Padova, PD'),
 	('Villa','Via Sedile di Porto 23, Padova, PD'),
@@ -226,6 +225,14 @@ INSERT INTO stipendio_base (impiego, stipendio) VALUES
 	('Cassiere', 30.0),
 	('Pizzaiolo', 40.0),
 	('Aiuto_Pizzaiolo', 35.0);
+
+/*
+ * Query necessaria per l'inderimento di tutti i dati utili nella tabella tipo_pagamento
+*/
+INSERT INTO tipo_pagamento (pagamento) VALUES 
+	('Contanti'),
+	('Bancomat'),
+	('Carta di Credito');
 
 /*
  * Query necessaria per l'inserimento di tutti i dati utili nella tabella calendario
