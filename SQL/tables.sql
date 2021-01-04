@@ -5,7 +5,6 @@ DROP TABLE IF EXISTS cliente CASCADE;
 DROP TABLE IF EXISTS composizione_ordine CASCADE;
 DROP TABLE IF EXISTS dipendente CASCADE;
 DROP TABLE IF EXISTS formato_pizza CASCADE;
-DROP TABLE IF EXISTS fornitore CASCADE;
 DROP TABLE IF EXISTS ingrediente CASCADE;
 DROP TABLE IF EXISTS turno CASCADE;
 DROP TABLE IF EXISTS magazzino CASCADE;
@@ -189,18 +188,6 @@ CREATE TABLE ricetta (
 	FOREIGN KEY (ingrediente) REFERENCES ingrediente(nome) ON DELETE CASCADE
 );
 
-CREATE TABLE fornitore (
-	id TEXT DEFAULT (generate_uid(5)),
-	p_iva VARCHAR(20),
-	azienda VARCHAR(20),
-	numero_tel VARCHAR(10),
-	indirizzo VARCHAR(20),
-	citta VARCHAR(20),
-	provincia VARCHAR(2),
-
-	PRIMARY KEY (id)
-);
-
 CREATE TABLE magazzino (
 	id SERIAL,
 
@@ -209,7 +196,7 @@ CREATE TABLE magazzino (
 	PRIMARY KEY (id),
 
 	CONSTRAINT fk_magazzino
-	FOREIGN KEY (gestore) REFERENCES amministrazione(id), pizzeria(id) ON DELETE CASCADE
+	FOREIGN KEY (gestore) REFERENCES pizzeria(id) ON DELETE CASCADE
 );
 
 CREATE TABLE stock (
@@ -234,8 +221,7 @@ CREATE TABLE rifornimento (
 	PRIMARY KEY (id),
 
 	CONSTRAINT fk_rifornimento
-	-- FOREIGN KEY (mittente) REFERENCES fornitore(id) ON DELETE CASCADE, ?
-	-- FOREIGN KEY (mittente) REFERENCES fornitore(id) ON DELETE CASCADE, ?
+	FOREIGN KEY (mittente) REFERENCES amministrazione(id) ON DELETE CASCADE,
 	FOREIGN KEY (magazzino) REFERENCES magazzino(id) ON DELETE CASCADE
 );
 
@@ -309,6 +295,7 @@ $body$ LANGUAGE SQL;
 CREATE OR REPLACE FUNCTION create_magazzino() RETURNS trigger AS $trig$
     BEGIN
         INSERT INTO magazzino (gestore) VALUES (NEW.id);
+				RETURN NULL;
     END;
 $trig$ LANGUAGE plpgsql;
 
