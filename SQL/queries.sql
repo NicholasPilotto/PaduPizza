@@ -79,3 +79,15 @@ BEGIN;
 	FROM (SELECT quantita FROM _bol) AS up
 	WHERE stock.magazzino = (SELECT id FROM magazzino WHERE magazzino.gestore = (SELECT p FROM _piz)) AND stock.ingrediente = (SELECT ingrediente FROM _bol);
 COMMIT WORK;
+
+--- 6) Query che seleziona quali provincie fatturano più della media
+SELECT SUM(scontrino.totale_lordo)
+FROM scontrino
+LEFT JOIN ordine
+ON ordine.id = scontrino.id
+LEFT JOIN pizzeria
+ON pizzeria.id = ordine.pizzeria
+LEFT JOIN amministrazione
+ON amministrazione.id = pizzeria.id
+WHERE date_part('month', scontrino.data) = 1
+GROUP BY pizzeria.id
