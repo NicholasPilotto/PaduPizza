@@ -17,6 +17,7 @@ DROP TABLE IF EXISTS scontrino CASCADE;
 DROP TABLE IF EXISTS stipendio_base CASCADE;
 DROP TABLE IF EXISTS stock CASCADE;
 DROP TABLE IF EXISTS titolare CASCADE;
+DROP TABLE IF EXISTS tipo_pagamento CASCADE;
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
@@ -78,10 +79,10 @@ CREATE TABLE stipendio_base (
 
 CREATE TABLE dipendente (
 	cf VARCHAR(16),
-	nome VARCHAR(20),
-	cognome VARCHAR(20),
+	nome VARCHAR(25),
+	cognome VARCHAR(25),
 	data_assunzione DATE,
-	impiego VARCHAR(20),
+	impiego VARCHAR(25),
 
 	pizzeria TEXT,
 
@@ -137,7 +138,7 @@ CREATE TABLE ordine (
 
 CREATE TABLE tipo_pagamento (
 	pagamento VARCHAR(25),
-	PRIMARY KEY pagamento
+	PRIMARY KEY (pagamento)
 );
 
 CREATE TABLE scontrino (
@@ -248,7 +249,7 @@ CREATE TABLE bolla_carico (
 CREATE OR REPLACE FUNCTION net_total_order(ord BIGINT) RETURNS table(price NUMERIC(5,2)) AS
 $body$
 
-	SELECT (SUM(prezzo) * ripetizioni) + aggiunte - rimozioni as total
+	SELECT (SUM(prezzo + formato_pizza.differenza_prezzo) * ripetizioni) + aggiunte - rimozioni as total
 	FROM composizione_ordine
 	LEFT JOIN pizza
 	ON pizza.nome = composizione_ordine.pizza
