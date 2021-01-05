@@ -285,17 +285,17 @@ $body$
 	HAVING pizzeria.titolare = tit AND date_part('month', scontrino.data) = mon
 $body$ LANGUAGE SQL;
 
-CREATE OR REPLACE FUNCTION km(dip TEXT, mm INT, yy INT) RETURNS table(km INT) AS
+CREATE OR REPLACE FUNCTION km(dip TEXT, mm INT, yy INT) RETURNS table(dip TEXT, km INT) AS
 $body$
-	SELECT SUM(km)
+	SELECT dip, SUM(km)
 	FROM turno
 	WHERE date_part('month', turno.data) = mm AND date_part('year', turno.data) = yy AND turno.dipendente = dip
 	GROUP BY turno.dipendente
 $body$ LANGUAGE SQL;
 
-CREATE OR REPLACE FUNCTION night_at_work(dip TEXT, mm INT, yy INT) RETURNS table(km INT) AS
+CREATE OR REPLACE FUNCTION night_at_work(dip TEXT, mm INT, yy INT) RETURNS table(dip TEXt, nights INT) AS
 $body$
-	SELECT COUNT(*)
+	SELECT dip, COUNT(*)
 	FROM turno
 	WHERE dipendente = dip AND date_part('month', turno.data) = mm AND date_part('year', turno.data) = yy
 	GROUP BY dipendente
