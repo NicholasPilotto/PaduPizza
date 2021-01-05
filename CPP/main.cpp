@@ -411,7 +411,7 @@ void refill(PGconn* conn) {
 	        		WHERE pizzeria.id = '%s' \
 	        	), \
 	        	_rif AS ( \
-	        		INSERT INTO rifornimento (mittente, magazzino) VALUES ((SELECT a FROM _piz), (SELECT id FROM magazzino WHERE gestore = (SELECT p FROM _piz))) RETURNING id \
+	        		INSERT INTO rifornimento (mittente, magazzino, data) VALUES ((SELECT a FROM _piz), (SELECT id FROM magazzino WHERE gestore = (SELECT p FROM _piz)), NOW()) RETURNING id \
 	        	), \
 	        	_bol AS ( \
 	        		INSERT INTO bolla_carico (rifornimento, ingrediente, quantita) VALUES ((SELECT MAX(id) FROM rifornimento), '%s', '%d') RETURNING ingrediente, rifornimento, quantita \
