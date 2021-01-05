@@ -14,7 +14,7 @@
 /*
  * Query necessaria per l'inserimento di tutti i dati utili nella tabella calendario
 */
-INSERT INTO calendario (id, giorno_chiusura, ora_apertura, ora_chiusura) VALUES 
+INSERT INTO calendario (id, giorno_chiusura, ora_apertura, ora_chiusura) VALUES
 	(1, 1, '18:00', '22:00'),
 	(2, 2, '18:00', '22:00'),
 	(3, 3, '18:00', '22:00'),
@@ -22,6 +22,8 @@ INSERT INTO calendario (id, giorno_chiusura, ora_apertura, ora_chiusura) VALUES
 	(5, 5, '18:00', '22:00'),
 	(6, 6, '18:00', '22:00'),
 	(7, 7, '18:00', '22:00');
+
+	<-- ! aggiungere calendario
 
 /*
  * Query da utilizzare per l'inserimento di tutti i dati necessari nella tabella contenente gli ingredienti utili per
@@ -125,7 +127,7 @@ INSERT INTO formato_pizza VALUES
 /*
  * Query per l'inserimento di tutti i dati necessari nella tabella cliente
 */
-INSERT INTO cliente (cognome,indirizzo) VALUES 
+INSERT INTO cliente (cognome,indirizzo) VALUES
 	('Rossi','Via Francesco Girardi 128, Padova, PD'),
 	('Villa','Via Sedile di Porto 23, Padova, PD'),
 	('Esposito','Via Giotto 64, Verona, VR'),
@@ -228,9 +230,9 @@ INSERT INTO cliente (cognome,indirizzo) VALUES
 	('Ferraro','Corso Porta Nuova, 11, Verona, VR');
 
 /*
- * Query necessaria per l'inserimento di tutti i dati utili nella tabella stipendio_base
+ * Query necessaria per l'inserimento di tutti i dati utili nella tabella lavoro
 */
-INSERT INTO stipendio_base (impiego, stipendio) VALUES
+INSERT INTO lavoro (impiego, stipendio) VALUES
 	('Domiciliare_Furgone', 25.0),
 	('Domiciliare_Macchina', 20.0),
 	('Cassiere', 30.0),
@@ -704,21 +706,4 @@ INSERT INTO dipendente (cf, nome, cognome, data_assunzione, impiego, pizzeria) V
 	('MSNDNT09S08A662J', 'Diamante', 'Masini', '03-12-2020', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Nogarasse, 2' LIMIT 1));
 
 
-/* BEGIN;
-WITH 
-	_id AS (
-		INSERT INTO ordine (ora, dipendente, pizzeria, cliente) VALUES ('18:00', 'DNADMN05R09L219Y', (SELECT pizzeria FROM dipendente WHERE cf = 'DNADMN05R09L219Y'), 1) RETURNING id
-	),
-	_comp AS (
-		INSERT INTO composizione_ordine (ordine, pizza, formato_pizza, aggiunte, rimozioni, ripetizioni) VALUES 
-		((SELECT id FROM _id), 'Margherita', 'Normale', 0, 0, 1),
-		((SELECT id FROM _id), 'Tombolina', 'Normale', 0, 0, 2),
-		((SELECT id FROM _id), 'Sfilacci', 'Famiglia', 0, 0, 1)
-	)
-
-INSERT INTO scontrino (id, data, tipo_pagamento, totale_lordo, iva) VALUES ((SELECT id FROM _id), '01-01-2021', 'Contanti', 0,0);
-
-UPDATE scontrino SET totale_lordo = (SELECT * FROM total_price((SELECT MAX(id) FROM scontrino))) WHERE id = (SELECT MAX(id) FROM scontrino);
-UPDATE scontrino SET iva = (SELECT * FROM total_vat((SELECT MAX(id) FROM scontrino))) WHERE id = (SELECT MAX(id) FROM scontrino);
-
-COMMIT; */
+	<--! aggiungere dati per lo stipendio dei dipendenti
