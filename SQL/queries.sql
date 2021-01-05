@@ -67,16 +67,16 @@ BEGIN;
 			FROM pizzeria
 			LEFT JOIN amministrazione
 			ON amministrazione.id = pizzeria.amministrazione
-			WHERE pizzeria.id = ? AND amministrazione.id = ?
+			WHERE pizzeria.id = ?AND amministrazione.id = ?
 		),
 		_rif AS (
 			INSERT INTO rifornimento (mittente, magazzino) VALUES ((SELECT a FROM _piz), (SELECT id FROM magazzino WHERE gestore = (SELECT p FROM _piz))) RETURNING id
 		),
 		_bol AS (
-			INSERT INTO bolla_carico (rifornimento, ingrediente, quantita) VALUES ((SELECT id FROM _rif), ?, ?) RETURNING ingrediente, rifornimento, quantita
+			INSERT INTO bolla_carico (rifornimento, ingrediente, quantita) VALUES ((SELECT MAX(id) FROM rifornimento), ?, ?) RETURNING ingrediente, rifornimento, quantita
 		),
 		_up AS (
-			INSERT INTO stock (magazzino, ingrediente, quantita) VALUES ((SELECT id FROM magazzino WHERE magazzino.gestore = (SELECT p FROM _piz)), (SELECT ingrediente FROM _bol), 0) ON CONFLICT DO NOTHING
+			INSERT INTO stock (magazzino, ingrediente, quantita) VALUES ((SELECT id FROM magazzino WHERE magazzino.gestore = (SELECT p FROM _piz)), (SELECT ingrediente FROM _bol), (SELECT quantita FROM _bol)) ON CONFLICT DO NOTHING
 		)
 
 	UPDATE stock SET quantita = stock.quantita + up.quantita
