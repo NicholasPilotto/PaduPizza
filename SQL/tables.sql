@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS pizzeria CASCADE;
 DROP TABLE IF EXISTS ricetta CASCADE;
 DROP TABLE IF EXISTS rifornimento CASCADE;
 DROP TABLE IF EXISTS scontrino CASCADE;
-DROP TABLE IF EXISTS stipendio_base CASCADE;
+DROP TABLE IF EXISTS lavoro CASCADE;
 DROP TABLE IF EXISTS stock CASCADE;
 DROP TABLE IF EXISTS titolare CASCADE;
 DROP TABLE IF EXISTS tipo_pagamento CASCADE;
@@ -70,7 +70,7 @@ CREATE TABLE pizzeria (
 	FOREIGN KEY (amministrazione) REFERENCES amministrazione(id) ON DELETE CASCADE
 );
 
-CREATE TABLE stipendio_base (
+CREATE TABLE lavoro (
 	impiego VARCHAR(20),
 	stipendio NUMERIC(5, 2),
 
@@ -90,7 +90,7 @@ CREATE TABLE dipendente (
 
 	CONSTRAINT fk_dipendente
 	FOREIGN KEY (pizzeria) REFERENCES pizzeria(id) ON DELETE CASCADE,
-	FOREIGN KEY (impiego) REFERENCES stipendio_base(impiego) ON DELETE CASCADE
+	FOREIGN KEY (impiego) REFERENCES lavoro(impiego) ON DELETE CASCADE
 );
 
 
@@ -226,6 +226,8 @@ CREATE TABLE rifornimento (
 
 	mittente TEXT,
 	magazzino BIGINT,
+
+	data TIMESTAMP;
 
 	PRIMARY KEY (id),
 
