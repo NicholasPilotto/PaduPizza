@@ -1,13 +1,9 @@
 # Variabile CC è il comando che invoca il compilatore
-CC = clang++
+CC = g++
 # CCFLAGS: flags per il compilatore
-CCFLAGS = -std=c++17 -Wall -march=x86-64
+CCFLAGS = -std=c++17 -Wall
 
-compile: main.o 
-        $(CC) $(CCFLAGS) main.o -o compile.o
-
-main.o: main.cpp
-        $(CC) $(CCFLAGS) -c main.cpp
-
+compile:
+	$(CC) $(CCFLAGS) main.cpp -L dependencies/lib -lpq -o main.o
 clean:
-        rm -f -v *.o
+	rm -f -v *.o
