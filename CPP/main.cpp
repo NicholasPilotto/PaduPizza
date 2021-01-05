@@ -20,9 +20,10 @@ using std::string;
 void checkResults(PGresult*, const PGconn*);
 
 void stip_tit();
+void stip_dip();
 
 int main(int argc, char const* argv[]) {
-  stip_tit();
+  stip_dip();
   return 0;
 }
 
@@ -67,7 +68,7 @@ void stip_tit() {
 
     cout << "Inserisci il codice fiscale del titolare per la quale effettuare il calcolo dello stipendio: ";
     cin >> tit;
-    cout << "Inserisci il mese per il calcolo dello stipendio";
+    cout << "Inserisci il mese per il calcolo dello stipendio (numero 1-12): ";
     cin >> month;
 
     query =
@@ -104,6 +105,104 @@ void stip_tit() {
       printf("\n");
     }
   }
+
+  PQfinish(conn);
+}
+
+void stip_dip() {
+  PGconn* conn;
+  char conn_info[250];
+  sprintf(conn_info, "user=%s password=%s dbname=%s hostaddr=%s port=%d", PG_USER, PG_PASS, PG_DB, PG_HOST, PG_PORT);
+  conn = PQconnectdb(conn_info);
+
+  if (PQstatus(conn) != CONNECTION_OK) {
+    cout << "Errore di connessione " << PQerrorMessage(conn);
+    PQfinish(conn);
+    exit(1);
+  } else {
+    cout << "Connessione avvenuta correttamente" << endl;
+    PGresult* res;
+
+    printf("\n\n");
+    cout << "\n---------------------------------------------------------- DIPENDENTI ----------------------------------------------------------" << endl;
+    string query = "SELECT DISTINCT dipendente.cf, dipendente.nome, dipendente.cognome FROM dipendente JOIN pizzeria ON pizzeria.id = dipendente.pizzeria";
+
+    PGresult* stmt = PQprepare(conn, "query_d", query.c_str(), 0, NULL);
+
+    res = PQexecPrepared(conn, "query_d", 0, nullptr, nullptr, 0, 0);
+
+    checkResults(res, conn);
+    int nFields = PQnfields(res);
+
+    for (int i = 0; i < nFields; i++) {
+      printf("%-50s", PQfname(res, i));
+    }
+    printf("\n\n");
+
+    for (int i = 0; i < PQntuples(res); i++) {
+      for (int j = 0; j < nFields; j++) {
+        printf("%-50s", PQgetvalue(res, i, j));
+      }
+      printf("\n");
+    }
+    printf("\n\n");
+
+    int month;
+    static const int year = 2021;
+    string dip;
+    string pizzeria;
+
+    cout << "Inserisci il codice fiscale del dipendente per la quale effettuare il calcolo dello stipendio: ";
+    cin >> dip;
+    cout << "Inserisci il mese per il calcolo dello stipendio (numero 1-12): ";
+    cin >> month;
+    // cout << "Inserisci la pizzeria dove lavora il dipendente: ";
+    // cin >> pizzeria;
+
+    query =
+        "SELECT distinct \
+	        CASE WHEN dipendente.impiego = 'Domiciliare_Macchina' THEN  (stipendio * night_at_work.nights + km.km * 0.3) \
+		           WHEN dipendente.impiego <> 'Domiciliare_Macchina' THEN stipendio * night_at_work.nights \
+	        END AS stipendio\
+          FROM dipendente \
+          LEFT JOIN pizzeria \
+          ON pizzeria.id = dipendente.pizzeria \
+          LEFT JOIN turno \
+          ON turno.dipendente = dipendente.cf \
+          LEFT JOIN stipendio_base \
+          ON stipendio_base.impiego = dipendente.impiego \
+          LEFT JOIN night_at_work(dipendente.cf, $2, 2021) \
+          ON dipendente.cf = night_at_work.dip \
+          LEFT JOIN km(dipendente.cf, $2, 2021) \
+          ON dipendente.cf = km.dip \
+          WHERE dipendente.cf = $1";
+
+    stmt = PQprepare(conn, "query_sti", query.c_str(), 2, NULL);
+
+    const char* params[2];
+    params[0] = dip.c_str();
+    params[1] = std::to_string(month).c_str();
+    // params[2] = std::to_string(year).c_str();
+    res = PQexecPrepared(conn, "query_sti", 2, params, nullptr, 0, 0);
+
+    checkResults(res, conn);
+
+    nFields = PQnfields(res);
+
+    for (int i = 0; i < nFields; i++) {
+      printf("%-50s", PQfname(res, i));
+    }
+    printf("\n\n");
+
+    for (int i = 0; i < PQntuples(res); i++) {
+      for (int j = 0; j < nFields; j++) {
+        printf("%-50s", PQgetvalue(res, i, j) ? PQgetvalue(res, i, j) : 0);
+      }
+      printf("\n");
+    }
+  }
+
+  PQfinish(conn);
 }
 
 // int main(int argc, char const* argv[]) {
