@@ -21,9 +21,10 @@ void checkResults(PGresult*, const PGconn*);
 
 void stip_tit();
 void stip_dip();
+void piz_rif();
 
 int main(int argc, char const* argv[]) {
-  stip_dip();
+  piz_rif();
   return 0;
 }
 
@@ -38,7 +39,6 @@ void stip_tit() {
     PQfinish(conn);
     exit(1);
   } else {
-    cout << "Connessione avvenuta correttamente" << endl;
     PGresult* res;
 
     cout << "\n---------------------------------------------------------- TITOLARI ----------------------------------------------------------" << endl;
@@ -120,7 +120,6 @@ void stip_dip() {
     PQfinish(conn);
     exit(1);
   } else {
-    cout << "Connessione avvenuta correttamente" << endl;
     PGresult* res;
 
     printf("\n\n");
@@ -156,8 +155,6 @@ void stip_dip() {
     cin >> dip;
     cout << "Inserisci il mese per il calcolo dello stipendio (numero 1-12): ";
     cin >> month;
-    // cout << "Inserisci la pizzeria dove lavora il dipendente: ";
-    // cin >> pizzeria;
 
     query =
         "SELECT distinct \
@@ -182,7 +179,6 @@ void stip_dip() {
     const char* params[2];
     params[0] = dip.c_str();
     params[1] = std::to_string(month).c_str();
-    // params[2] = std::to_string(year).c_str();
     res = PQexecPrepared(conn, "query_sti", 2, params, nullptr, 0, 0);
 
     checkResults(res, conn);
@@ -197,6 +193,56 @@ void stip_dip() {
     for (int i = 0; i < PQntuples(res); i++) {
       for (int j = 0; j < nFields; j++) {
         printf("%-50s", PQgetvalue(res, i, j) ? PQgetvalue(res, i, j) : 0);
+      }
+      printf("\n");
+    }
+  }
+
+  PQfinish(conn);
+}
+
+void piz_rif() {
+  PGconn* conn;
+  char conn_info[250];
+  sprintf(conn_info, "user=%s password=%s dbname=%s hostaddr=%s port=%d", PG_USER, PG_PASS, PG_DB, PG_HOST, PG_PORT);
+  conn = PQconnectdb(conn_info);
+
+  if (PQstatus(conn) != CONNECTION_OK) {
+    cout << "Errore di connessione " << PQerrorMessage(conn);
+    PQfinish(conn);
+    exit(1);
+  } else {
+    PGresult* res;
+
+    string query =
+        "SELECT pizzeria.id, ingrediente.nome, stock.quantita \
+        FROM amministrazione \
+        INNER JOIN pizzeria \
+        ON pizzeria.amministrazione = amministrazione.id \
+        INNER JOIN magazzino \
+        ON magazzino.gestore = pizzeria.id \
+        INNER JOIN stock \
+        ON stock.magazzino = magazzino.id \
+        INNER JOIN ingrediente \
+        ON ingrediente.nome = stock.ingrediente \
+        WHERE stock.quantita < 20";
+
+    PGresult* stmt = PQprepare(conn, "query_p", query.c_str(), 0, NULL);
+
+    res = PQexecPrepared(conn, "query_p", 0, nullptr, nullptr, 0, 0);
+
+    checkResults(res, conn);
+
+    int nFields = PQnfields(res);
+
+    for (int i = 0; i < nFields; i++) {
+      printf("%-20s", PQfname(res, i));
+    }
+    printf("\n\n");
+
+    for (int i = 0; i < PQntuples(res); i++) {
+      for (int j = 0; j < nFields; j++) {
+        printf("%-20s", PQgetvalue(res, i, j) ? PQgetvalue(res, i, j) : 0);
       }
       printf("\n");
     }
