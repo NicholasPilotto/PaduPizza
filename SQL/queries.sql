@@ -38,8 +38,8 @@ LEFT JOIN pizzeria
 ON pizzeria.id = dipendente.pizzeria
 LEFT JOIN turno
 ON turno.dipendente = dipendente.cf
-LEFT JOIN stipendio_base
-ON stipendio_base.impiego = dipendente.impiego
+LEFT JOIN lavoro
+ON lavoro.impiego = dipendente.impiego
 LEFT JOIN night_at_work(dipendente.cf, ?, 2021)
 ON dipendente.cf = night_at_work.dip
 LEFT JOIN km(dipendente.cf, ?, 2021)
@@ -70,7 +70,7 @@ BEGIN;
 			WHERE pizzeria.id = ?AND amministrazione.id = ?
 		),
 		_rif AS (
-			INSERT INTO rifornimento (mittente, magazzino) VALUES ((SELECT a FROM _piz), (SELECT id FROM magazzino WHERE gestore = (SELECT p FROM _piz))) RETURNING id
+			INSERT INTO rifornimento (mittente, magazzino, data) VALUES ((SELECT a FROM _piz), (SELECT id FROM magazzino WHERE gestore = (SELECT p FROM _piz)), NOW()) RETURNING id
 		),
 		_bol AS (
 			INSERT INTO bolla_carico (rifornimento, ingrediente, quantita) VALUES ((SELECT MAX(id) FROM rifornimento), ?, ?) RETURNING ingrediente, rifornimento, quantita
