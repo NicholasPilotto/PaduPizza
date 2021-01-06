@@ -20,10 +20,16 @@ INSERT INTO calendario (id, giorno_chiusura, ora_apertura, ora_chiusura) VALUES
 	(3, 3, '18:00', '22:00'),
 	(4, 4, '18:00', '22:00'),
 	(5, 5, '18:00', '22:00'),
-	(6, 6, '18:00', '22:00'),
-	(7, 7, '18:00', '22:00');
-
-	<-- ! aggiungere calendario
+	(6, 1, '17:30', '22:00'),
+	(7, 2, '17:30', '22:00');
+	(8, 3, '17:30', '22:00');
+	(9, 4, '17:30', '22:00');
+	(10, 5, '17:30', '22:00');
+	(11, 1, '18:00', '24:00');
+	(12, 2, '18:00', '24:00');
+	(13, 3, '18:00', '24:00');
+	(14, 4, '18:00', '24:00');
+	(15, 5, '18:00', '24:00');
 
 /*
  * Query da utilizzare per l'inserimento di tutti i dati necessari nella tabella contenente gli ingredienti utili per
@@ -703,7 +709,25 @@ INSERT INTO dipendente (cf, nome, cognome, data_assunzione, impiego, pizzeria) V
 	('VNTLLL04C22C351Q', 'Lello', 'Ventura', '02-24-2018', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Nogarasse, 2' LIMIT 1)),
 	('PSNFNC09L08A944F', 'Franco', 'Pisano', '03-26-2018', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Nogarasse, 2' LIMIT 1)),
 	('DNADMN05R09L219Y', 'Damiano', 'Dani', '09-19-2012', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Viale della Vittora, 1' LIMIT 1)),
-	('MSNDNT09S08A662J', 'Diamante', 'Masini', '03-12-2020', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Nogarasse, 2' LIMIT 1));
+	('MSNDNT09S08A662J', 'Diamante', 'Masini', '03-12-2020', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Nogarasse, 2' LIMIT 1)),
+	('FGNZSE34D01D701O', 'Zeus', 'Faugno', '03-11-2017', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Municipio 11' LIMIT 1)),
+	('NHOMZC74L41F864N', 'Mazia', 'Noha', '11-12-2012', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via San Antonio, 6' LIMIT 1)),
+	('DLTBNZ65L15E885E', 'Biaggio', 'Deletris', '01-03-2021', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Municipio 11' LIMIT 1)),
+	('SQGZBC39S18C939J', 'Graziano', 'Squaglia', '05-30-2018', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via San Antonio, 6' LIMIT 1)),
+	('HSPGMM39S01G762G', 'Giacomo', 'Herman', '05-23-2016', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via San Antonio, 6' LIMIT 1)),
+	('BBUBNG96R46G571U', 'Angelica', 'Brama', '10-20-2015', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Nogarasse, 2' LIMIT 1)),
+	('BDXHCL38P41I724F', 'Celeste', 'Heidi', '03-12-2019', 'Aiuto_Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via San Antonio, 6' LIMIT 1)),
+	('PCWPRY68S69H777C', 'Willian', 'Piccolo', '01-05-2021', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Nogarasse, 2' LIMIT 1)),
+	('VBDSBS83H64B526J', 'Demetrio', 'Vito', '09-25-2011', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Nogarasse, 2' LIMIT 1)),
+	('NVMJVL95D49H417Z', 'Jody', 'Nuovo', '03-12-2020', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via San Antonio, 6' LIMIT 1)),
+	('PTYGNN88T08L326Y', 'Yara', 'Pivato', '01-07-2010', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Municipio 11' LIMIT 1)),
+	('GGKNQP39L66A553T', 'Maqap', 'Gouak', '07-30-2010', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via San Antonio, 6' LIMIT 1)),
+	('VTSFYR45H08F934T', 'Francesca', 'Vasto', '04-29-2011', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via San Marco, 16' LIMIT 1)),
+	('HHMZST54P57A459T', 'Matteo', 'Haaland', '12.-27-2020', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Nogarasse, 2' LIMIT 1)),
+	('VRUPZM62S21M140L', 'Prazam', 'Vitru', '11-19-2017', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via San Antonio, 6' LIMIT 1)),
+	('VBQPHC41T52A438M', 'Federica', 'Vibiq', '12-04-2013', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Municipio 11' LIMIT 1)),
+	('RYHNCT39R71I392Q', 'Nicole', 'Rhyno', '05-17-2020', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Municipio 11' LIMIT 1)),
+	('TCPNPV96T04F272Y', 'Paola', 'Tronco', '06-06-2018', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via San Marco, 16' LIMIT 1)),
+	('HSZGVC58D61A516J', 'Giacomo', 'Hazai', '04-29-2011', 'Aiuto_Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via San Marco, 16' LIMIT 1)),
+	('DMYVMR97P02E402X', 'Dymtri', 'Masha', '11-19-2017', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via San Marco, 16' LIMIT 1));
 
-
-	<--! aggiungere dati per lo stipendio dei dipendenti
