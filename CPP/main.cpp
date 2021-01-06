@@ -24,6 +24,7 @@ void stip_dip(PGconn*);
 void piz_rif(PGconn*);
 void insert_order(PGconn*);
 void refill(PGconn*);
+void fatt_prov(PGconn*);
 
 void print_titolari(PGconn*);
 void print_dipendenti(PGconn*);
@@ -45,6 +46,37 @@ int main(int argc, char const* argv[]) {
     PQfinish(conn);
     exit(1);
   } else {
+    int op;
+    cout << "1) Inserimento di un ordine;" << endl;
+    cout << "2) Calcolare lo stipendio di un titolare;" << endl;
+    cout << "3) Calcolare lo stipendio di un dipendente;" << endl;
+    cout << "4) Elencare tutte le pizzeria che hanno in magazzino un alimento di quantita' < 20;" << endl;
+    cout << "5) Rifornire una pizzeria;" << endl;
+    cout << "6) Elencare tutte le pizzerie che hanno fatturato sopra la media in un dato mese;" << endl;
+    cout << "Inserire l'operazione da eseguire (1-6): ";
+    cin >> op;
+
+    switch (op) {
+      case 1:
+        insert_order(conn);
+        break;
+      case 2:
+        stip_tit(conn);
+        break;
+      case 3:
+        stip_dip(conn);
+        break;
+      case 4:
+        piz_rif(conn);
+        break;
+      case 5:
+        refill(conn);
+        break;
+      case 6:
+        fatt_prov(conn);
+      default:
+        break;
+    }
     insert_order(conn);
   }
   PQfinish(conn);
@@ -426,7 +458,6 @@ void refill(PGconn* conn) {
 
   string pizzeria;
   string ingrediente;
-  // int n_ing;
   int quant;
   cout << "Inserisci la pizzeria da rifornire: ";
   cin >> pizzeria;
@@ -437,7 +468,6 @@ void refill(PGconn* conn) {
 
   sprintf(query, aux.c_str(), pizzeria.c_str(), ingrediente.c_str(), quant);
   res = PQexec(conn, query);
-  checkResults(res, conn);
 }
 
 void insert_order(PGconn* conn) {
@@ -517,4 +547,44 @@ void insert_order(PGconn* conn) {
 
   sprintf(query, aux.c_str(), dipendente.c_str(), pizzeria.c_str(), cliente.c_str(), datas.c_str(), pagamento.c_str());
   res = PQexec(conn, query);
+}
+
+void fatt_prov(PGconn* conn) {
+  string aux =
+      "SELECT SUM(scontrino.totale_lordo) \
+       FROM scontrino \
+       LEFT JOIN ordine \
+       ON ordine.id = scontrino.id \
+       LEFT JOIN pizzeria \
+       ON pizzeria.id = ordine.pizzeria \
+       LEFT JOIN amministrazione \
+       ON amministrazione.id = pizzeria.id \
+       WHERE date_part('month', scontrino.data) = %d \
+       GROUP BY pizzeria.id";
+  char query[10000];
+
+  int month;
+  cout << "Inserisci il numero del mese per il calcolo delle migliori pizzerie: ";
+  cin >> month;
+
+  sprintf(query, aux.c_str(), month);
+  PGresult* res;
+
+  res = PQexec(conn, query);
+
+  checkResults(res, conn);
+
+  int nFields = PQnfields(res);
+
+  for (int i = 0; i < nFields; i++) {
+    printf("%-50s", PQfname(res, i));
+  }
+  printf("\n\n");
+
+  for (int i = 0; i < PQntuples(res); i++) {
+    for (int j = 0; j < nFields; j++) {
+      printf("%-50s", PQgetvalue(res, i, j) ? PQgetvalue(res, i, j) : 0);
+    }
+    printf("\n");
+  }
 }
