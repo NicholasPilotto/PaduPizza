@@ -1,3 +1,12 @@
+CREATE DATABASE padupizza
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'en_US.UTF-8'
+    LC_CTYPE = 'en_US.UTF-8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
 DROP TABLE IF EXISTS amministrazione CASCADE;
 DROP TABLE IF EXISTS bolla_carico CASCADE;
 DROP TABLE IF EXISTS calendario CASCADE;
@@ -247,6 +256,9 @@ CREATE TABLE bolla_carico (
 	FOREIGN KEY (rifornimento) REFERENCES rifornimento(id) ON DELETE CASCADE,
 	FOREIGN KEY (ingrediente) REFERENCES ingrediente(nome) ON DELETE CASCADE
 );
+
+CREATE INDEX clienti_index
+	ON clienti(id);
 
 CREATE OR REPLACE FUNCTION net_total_order(ord BIGINT) RETURNS table(price NUMERIC(5,2)) AS
 $body$
