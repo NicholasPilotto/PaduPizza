@@ -12,9 +12,9 @@ using std::setw;
 using std::string;
 
 #define PG_HOST "xxx.xxx.xxx.xxx"
-#define PG_USER "xxxxxxxxxxxxx"  //il vostro nome utente
-#define PG_DB "padupizza"        //il nome del database
-#define PG_PASS "***********"    //la vostra password
+#define PG_USER "xxxxxx"   //il vostro nome utente
+#define PG_DB "xxxxxx"     //il nome del database
+#define PG_PASS "*******"  //la vostra password
 #define PG_PORT 5432
 
 void checkResults(PGresult*, const PGconn*);
@@ -110,7 +110,7 @@ void print_dipendenti(PGconn* conn) {
   PGresult* res;
 
   cout << "\n---------------------------------------------------------- DIPENDENTI ----------------------------------------------------------" << endl;
-  string query = "SELECT  * FROM dipendente JOIN pizzeria ON pizzeria.id = dipendente.cf";
+  string query = "SELECT dipendente.cf, dipendente.nome, dipendente.cognome, dipendente.pizzeria FROM dipendente JOIN pizzeria ON pizzeria.id = dipendente.pizzeria";
 
   res = PQexec(conn, query.c_str());
 
