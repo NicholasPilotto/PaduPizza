@@ -282,7 +282,7 @@ CREATE TABLE bolla_carico (
 );
 
 CREATE INDEX clienti_index
-	ON clienti(id);
+	ON cliente(id);
 
 CREATE OR REPLACE FUNCTION net_total_order(ord BIGINT) RETURNS table(price NUMERIC(5,2)) AS
 $body$
