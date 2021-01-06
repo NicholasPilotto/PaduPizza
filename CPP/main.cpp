@@ -11,10 +11,10 @@ using std::setw;
 
 using std::string;
 
-#define PG_HOST "xxx.xxx.xxx.xxx"
-#define PG_USER "xxxxxx"   //il vostro nome utente
-#define PG_DB "xxxxxx"     //il nome del database
-#define PG_PASS "*******"  //la vostra password
+#define PG_HOST "127.0.0.1"
+#define PG_USER "postgress"  //il vostro nome utente
+#define PG_DB "padupizza"    //il nome del database
+#define PG_PASS "admin"      //la vostra password
 #define PG_PORT 5432
 
 void checkResults(PGresult*, const PGconn*);
