@@ -34,3 +34,4 @@
 #Others
 *.vscode
 !main.o
+!main.exe
