@@ -729,5 +729,35 @@ INSERT INTO dipendente (cf, nome, cognome, data_assunzione, impiego, pizzeria) V
 	('RYHNCT39R71I392Q', 'Nicole', 'Rhyno', '05-17-2020', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Municipio 11' LIMIT 1)),
 	('TCPNPV96T04F272Y', 'Paola', 'Tronco', '06-06-2018', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via San Marco, 16' LIMIT 1)),
 	('HSZGVC58D61A516J', 'Giacomo', 'Hazai', '04-29-2011', 'Aiuto_Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via San Marco, 16' LIMIT 1)),
-	('DMYVMR97P02E402X', 'Dymtri', 'Masha', '11-19-2017', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via San Marco, 16' LIMIT 1));
+	('DMYVMR97P02E402X', 'Dymtri', 'Masha', '11-19-2017', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via San Marco, 16' LIMIT 1)),
+	('HHLZVM70S01G865S', 'Hermes', 'Moscoviz', '04-25-2010', 'Aiuto_Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Alberti, 64' LIMIT 1)),
+	('WBFZHM97E26G802S', 'Walmart', 'Fizpatrick', '07-08-2010', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Sole, 34' LIMIT 1)),
+	('JFURTL67L12B645T', 'Jordan', 'Furlan', '01-01-2011', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Sole, 34' LIMIT 1)),
+	('YYJLFV70L62B693W', 'Ylenia', 'Favaro', '10-10-2011', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Vittorio Emanuele, 200' LIMIT 1)),
+	('HMBPFQ37P51B217P', 'Helena', 'Bupf', '12-25-2011', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Vittorio Emanuele, 200' LIMIT 1)),
+	('VVTNYZ33A17G367Q', 'Walter', 'Tennent', '01-14-2012', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Alberti, 64' LIMIT 1)),
+	('HGPZNK66D14E338W', 'Henger', 'Preganz', '02-23-2012', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Alberti, 64' LIMIT 1)),
+	('VVTLMY78S41L113C', 'Vittorio', 'Lamanna', '09-22-2012', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Filzi, 38C' LIMIT 1)),
+	('JMTGQR83E05H455Y', 'Janet', 'Greq', '11-12-2012', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Alberti, 64' LIMIT 1)),
+	('GCNKCT67E22F156E', 'Giacomo', 'Cattaneo', '03-23-2013', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Filzi, 38C' LIMIT 1)),
+	('VSXFJH69A67D712E', 'Vasile', 'Fuji', '03-26-2013', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Sole, 34' LIMIT 1)),
+	('ZTTPMH92E29M102M', 'Zoe', 'Vittori', '01-25-2015', 'Aiuto_Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Filzi, 38C' LIMIT 1)),
+	('TWFCGD34S64Z901X', 'Tewnty', 'Cagoo', '04-01-2015', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Vittorio Emanuele, 200' LIMIT 1)),
+	('NWWYRV89L48L919S', 'Newew', 'Yori', '07-13-2015', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via San Marco, 16' LIMIT 1)),
+	('GHRNZQ29P62C599Z', 'Giorgia', 'Zanatta', '06-02-2017', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via San Marco, 16' LIMIT 1)),
+	('HLKLVD67M27B687Y', 'Hilary', 'Kalco', '07-15-2018', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Filzi, 38C' LIMIT 1)),
+	('FCKTLA71A48D576Q', 'Franck', 'Tala', '12-25-2019', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Filzi, 38C' LIMIT 1)),
+	('SSRVFL39A27L048Y', 'Asia', 'Reffo', '03-14-2020', 'Aiuto_Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Alberti, 64' LIMIT 1)),
+	('ZGZGSD27H61D788Z', 'Zagor', 'Grasso', '06-11-2020', 'Domiciliare_Macchina', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Vittorio Emanuele, 200' LIMIT 1)),
+	('PVFXPP40E50A354T', 'Puffetta', 'Puffo', '09-14-2020', 'Domiciliare_Furgone', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Vittorio Emanuele, 200' LIMIT 1));
+
+
+
+
+
+
+
+
+
+
 
