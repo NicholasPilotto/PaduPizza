@@ -77,7 +77,6 @@ int main(int argc, char const* argv[]) {
       default:
         break;
     }
-    insert_order(conn);
   }
   PQfinish(conn);
   return 0;
