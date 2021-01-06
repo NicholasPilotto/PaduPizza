@@ -849,3 +849,52 @@ INSERT INTO stock (magazzino, ingrediente, quantita) VALUES
 	((SELECT id FROM magazzino WHERE gestore = (SELECT id FROM pizzeria WHERE indirizzo = 'Via Montegrappa, 23')), 'Peperoni', 5),
 	((SELECT id FROM magazzino WHERE gestore = (SELECT id FROM pizzeria WHERE indirizzo = 'Via Montegrappa, 23')), 'Radicchio', 9),
 	((SELECT id FROM magazzino WHERE gestore = (SELECT id FROM pizzeria WHERE indirizzo = 'Via Montegrappa, 23')), 'Spinaci', 14);
+
+
+	INSERT INTO turno (data, dipendente, km) VALUES 
+		(, 'CSTMLC06R61H501S', 0), <-- cassiere
+		(, 'CSTMLC06R61H501S', 0),
+		(, 'CSTMLC06R61H501S', 0),
+		(, 'CSTMLC06R61H501S', 0),
+		(, 'CSTMLC06R61H501S', 0),
+		(, 'CSTMLC06R61H501S', 0),
+		(, 'CSTMLC06R61H501S', 0),
+		(, 'CSTMLC06R61H501S', 0),
+		(, 'CSTMLC06R61H501S', 0),
+		(, 'CSTMLC06R61H501S', 0),
+		(, 'CSTMLC06R61H501S', 0),
+		(, 'MTRNLD10R58F205Q', 0), <-- cassiere
+		(, 'MTRNLD10R58F205Q', 0),
+		(, 'MTRNLD10R58F205Q', 0),
+		(, 'MTRNLD10R58F205Q', 0),
+		(, 'MTRNLD10R58F205Q', 0),
+		(, 'MTRNLD10R58F205Q', 0),
+		(, 'MTRNLD10R58F205Q', 0),
+		(, 'MTRNLD10R58F205Q', 0),
+		(, 'MTRNLD10R58F205Q', 0),
+		(, 'MGGMRN04M61L736R', 0), <-- cassiere
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), <-- cassiere
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+		(, 'MGGMRN04M61L736R', 0), 
+
+
