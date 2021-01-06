@@ -236,7 +236,7 @@ CREATE TABLE rifornimento (
 	mittente TEXT,
 	magazzino BIGINT,
 
-	data TIMESTAMP;
+	data TIMESTAMP,
 
 	PRIMARY KEY (id),
 
