@@ -6,7 +6,7 @@ CREATE DATABASE padupizza
     LC_CTYPE = 'en_US.UTF-8'
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1;
-		
+
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 DROP TABLE IF EXISTS amministrazione CASCADE;
@@ -29,6 +29,29 @@ DROP TABLE IF EXISTS lavoro CASCADE;
 DROP TABLE IF EXISTS stock CASCADE;
 DROP TABLE IF EXISTS titolare CASCADE;
 DROP TABLE IF EXISTS tipo_pagamento CASCADE;
+
+CREATE OR REPLACE FUNCTION public.generate_uid(IN size integer)
+    RETURNS text
+    LANGUAGE 'plpgsql'
+    VOLATILE
+    PARALLEL UNSAFE
+    COST 100
+    
+AS $BODY$
+DECLARE
+  characters TEXT := 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  bytes BYTEA := gen_random_bytes(size);
+  l INT := length(characters);
+  i INT := 0;
+  output TEXT := '';
+BEGIN
+  WHILE i < size LOOP
+    output := output || substr(characters, get_byte(bytes, i) % l + 1, 1);
+    i := i + 1;
+  END LOOP;
+  RETURN output;
+END;
+$BODY$;
 
 
 CREATE TABLE titolare (
