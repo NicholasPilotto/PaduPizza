@@ -682,7 +682,7 @@ INSERT INTO dipendente (cf, nome, cognome, data_assunzione, impiego, pizzeria) V
 	('RNCRGR07L28F205B', 'Roggero', 'Ronchi', '2015-04-25', 'Aiuto_Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Vicenza, 21' LIMIT 1)),
 	('DLRMNL03P42C351V', 'Manuela', 'Dilorenzo', '2014-12-08', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Luna, 47' LIMIT 1)),
 	('FDDNSC10C69D612C', 'Natascia', 'Fadda', '2013-06-26', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Luna, 47' LIMIT 1)),
-	('RZZLRA04R64F205W', 'Lara', 'Rizzo', '', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Mira, 32' LIMIT 1)),
+	('RZZLRA04R64F205W', 'Lara', 'Rizzo', '2015-03-20', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Via Mira, 32' LIMIT 1)),
 	('VLSSVT07H21H501X', 'Salvatore', 'Valsecchi', '2014-10-22', 'Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Viale della Vittora, 1' LIMIT 1)),
 	('RCRMGR02R58H501N', 'Mariagrazia', 'Arcuri', '2013-04-13', 'Cassiere', (SELECT id FROM pizzeria WHERE indirizzo = 'Viale della Vittora, 1' LIMIT 1)),
 	('BRNMRT09S50L736U', 'Mirta', 'Brandi', '2012-06-03', 'Aiuto_Pizzaiolo', (SELECT id FROM pizzeria WHERE indirizzo = 'Viale della Vittora, 1' LIMIT 1)),
