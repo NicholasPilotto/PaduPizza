@@ -29,10 +29,11 @@ SELECT
 FROM month_earning(?, ?)
 
 --- 3) Query per il calcolo dello stipendio mensile di un dipendente
-SELECT distinct 
-	CASE WHEN dipendente.impiego = 'Domiciliare_Macchina' THEN  (stipendio * night_at_work.nights + km.km * 0.3)
+SELECT DISTINCT 
+	CASE WHEN night_at_work.nights = 0 THEN 0
+		  WHEN dipendente.impiego = 'Domiciliare_Macchina' THEN  (stipendio * night_at_work.nights + km.km * 0.3)
 		  WHEN dipendente.impiego <> 'Domiciliare_Macchina' THEN stipendio * night_at_work.nights
-	END
+	END as Stipendio
 FROM dipendente
 LEFT JOIN pizzeria
 ON pizzeria.id = dipendente.pizzeria
@@ -40,9 +41,9 @@ LEFT JOIN turno
 ON turno.dipendente = dipendente.cf
 LEFT JOIN lavoro
 ON lavoro.impiego = dipendente.impiego
-LEFT JOIN night_at_work(dipendente.cf, ?, 2021)
-ON dipendente.cf = night_at_work.dip
-LEFT JOIN km(dipendente.cf, ?, 2021)
+LEFT JOIN night_at_work(dipendente.cf, 1, 2020)
+ON dipendente.cf = night_at_work.dipendente
+LEFT JOIN km(dipendente.cf, 1, 2020)
 ON dipendente.cf = km.dip
 WHERE dipendente.cf = ?
 
