@@ -62,28 +62,33 @@ WHERE stock.quantita < 20
 
 --- 5) Query per il refill di un magazzino di una pizzeria proveniente dalla sua amministrazione
 BEGIN;
-	WITH 
-		_piz AS (
-			SELECT pizzeria.id AS p, amministrazione.id AS a
-			FROM pizzeria
-			LEFT JOIN amministrazione
-			ON amministrazione.id = pizzeria.amministrazione
-			WHERE pizzeria.id = ?AND amministrazione.id = ?
-		),
-		_rif AS (
-			INSERT INTO rifornimento (mittente, magazzino, data) VALUES ((SELECT a FROM _piz), (SELECT id FROM magazzino WHERE gestore = (SELECT p FROM _piz)), NOW()) RETURNING id
-		),
-		_bol AS (
-			INSERT INTO bolla_carico (rifornimento, ingrediente, quantita) VALUES ((SELECT MAX(id) FROM rifornimento), ?, ?) RETURNING ingrediente, rifornimento, quantita
-		),
-		_up AS (
-			INSERT INTO stock (magazzino, ingrediente, quantita) VALUES ((SELECT id FROM magazzino WHERE magazzino.gestore = (SELECT p FROM _piz)), (SELECT ingrediente FROM _bol), (SELECT quantita FROM _bol)) ON CONFLICT DO NOTHING
-		)
-
-	UPDATE stock SET quantita = stock.quantita + up.quantita
-	FROM (SELECT quantita FROM _bol) AS up
-	WHERE stock.magazzino = (SELECT id FROM magazzino WHERE magazzino.gestore = (SELECT p FROM _piz)) AND stock.ingrediente = (SELECT ingrediente FROM _bol);
-COMMIT WORK;
+DO $$
+DECLARE
+	_pizzeria TEXT;
+	_amministrazione TEXT;
+	_ingrediente VARCHAR;
+	_magazzino BIGINT;
+	_quantita INTEGER;
+	_rifornimento BIGINT;
+	_bolla BIGINT;
+BEGIN 
+	_pizzeria := ?;
+	_magazzino := (SELECT id FROM magazzino WHERE magazzino.gestore = _pizzeria);
+	_amministrazione := (SELECT amministrazione.id
+						 FROM pizzeria
+						 LEFT JOIN amministrazione
+						 ON amministrazione.id = pizzeria.amministrazione
+						 WHERE pizzeria.id = _pizzeria);
+	_ingrediente := ?;
+	_quantita := ?;
+	INSERT INTO rifornimento (mittente, magazzino, data) VALUES (_amministrazione, _magazzino, NOW()) RETURNING id INTO _rifornimento;
+	INSERT INTO bolla_carico (rifornimento, ingrediente, quantita) VALUES (_rifornimento, _ingrediente, _quantita);
+	INSERT INTO stock (magazzino, ingrediente, quantita) VALUES (_magazzino, _ingrediente, _quantita) ON CONFLICT (magazzino, ingrediente) DO
+	UPDATE SET quantita = stock.quantita + _quantita
+		WHERE stock.magazzino = _magazzino AND stock.ingrediente = _ingrediente;
+END;
+$$ LANGUAGE 'plpgsql';
+COMMIT;
 
 --- 6) Query che seleziona quali provincie fatturano più della media
 SELECT SUM(scontrino.totale_lordo)
