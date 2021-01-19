@@ -1,19 +1,19 @@
 --- 1) Query per l'inserimento di un ordine nel Database
 BEGIN;
-	WITH
-		_id AS (
-			INSERT INTO ordine (ora, dipendente, pizzeria, cliente) VALUES (NOW(), ?, ?, ?) RETURNING id
-		),
-		_comp AS (
-			INSERT INTO composizione_ordine (ordine, pizza, formato_pizza, aggiunte, rimozioni, ripetizioni) VALUES 
-			((SELECT id FROM _id), ?, ?, ?, ?, ?),
-			((SELECT id FROM _id), ?, ?, ?, ?, ?)
-		)
+DO $$
+DECLARE
+	_id BIGINT;
+	_now TIMESTAMP;
+BEGIN 
+	_now := NOW();
+	INSERT INTO ordine (ora, dipendente, pizzeria, cliente) VALUES 
+				(_now, ?, ^, ?) RETURNING id INTO _id;
+	INSERT INTO composizione_ordine (ordine, pizza, formato_pizza, aggiunte, rimozioni, ripetizioni) VALUES 
+		(_id, ?, ?, ?, ?, ?);
 
-	INSERT INTO scontrino (id, data, tipo_pagamento, totale_lordo, iva) VALUES ((SELECT id FROM _id), NOW(), ?, 0, 0);
-
-	UPDATE scontrino SET totale_lordo = (SELECT * FROM total_price((SELECT MAX(id) FROM scontrino))) WHERE id = (SELECT MAX(id) FROM scontrino);
-	UPDATE scontrino SET iva = (SELECT * FROM total_vat((SELECT MAX(id) FROM scontrino))) WHERE id = (SELECT MAX(id) FROM scontrino);
+	INSERT INTO scontrino (id, data, tipo_pagamento, totale_lordo, iva) VALUES (_id, _now, ?, (SELECT * FROM total_price(_id)), (SELECT * FROM total_vat(_id)));
+END;
+$$ LANGUAGE 'plpgsql';
 COMMIT;
 
 --- 2) Query per il calcolo dello stipendio mensile di un titolare di N pizzerie. Esso varia in base al fatturato totale
@@ -31,8 +31,8 @@ FROM month_earning(?, ?)
 --- 3) Query per il calcolo dello stipendio mensile di un dipendente
 SELECT DISTINCT 
 	CASE WHEN night_at_work.nights = 0 THEN 0
-		  WHEN dipendente.impiego = 'Domiciliare_Macchina' THEN  (stipendio * night_at_work.nights + km.km * 0.3)
-		  WHEN dipendente.impiego <> 'Domiciliare_Macchina' THEN stipendio * night_at_work.nights
+		   WHEN dipendente.impiego = 'Domiciliare_Macchina' THEN  (stipendio * night_at_work.nights + km.km * 0.3)
+		   WHEN dipendente.impiego <> 'Domiciliare_Macchina' THEN stipendio * night_at_work.nights
 	END as Stipendio
 FROM dipendente
 LEFT JOIN pizzeria
