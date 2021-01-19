@@ -331,13 +331,23 @@ $body$
 	GROUP BY turno.dipendente
 $body$ LANGUAGE SQL;
 
-CREATE OR REPLACE FUNCTION night_at_work(dip TEXT, mm INT, yy INT) RETURNS table(dip TEXt, nights INT) AS
-$body$
-	SELECT dip, COUNT(*)
+CREATE OR REPLACE FUNCTION night_at_work(dip TEXT, mm INT, yy INT) RETURNS table(dipendente TEXt, nights INT) AS $$
+DECLARE
+	n INTEGER;
+	d TEXT;
+BEGIN
+	d := dip;
+	n := (SELECT COUNT(*)
 	FROM turno
-	WHERE dipendente = dip AND date_part('month', turno.data) = mm AND date_part('year', turno.data) = yy
-	GROUP BY dipendente
-$body$ LANGUAGE SQL;
+	WHERE turno.dipendente = d AND date_part('month', turno.data) = mm AND date_part('year', turno.data) = yy
+	GROUP BY turno.dipendente);
+	IF n IS NULL
+		THEN n := 0;
+	END IF;
+	
+	RETURN QUERY (SELECT d, n);
+END
+$$ LANGUAGE 'plpgsql' VOLATILE;
 
 CREATE OR REPLACE FUNCTION create_magazzino() RETURNS trigger AS $trig$
     BEGIN

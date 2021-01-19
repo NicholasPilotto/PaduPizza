@@ -1308,38 +1308,38 @@ INSERT INTO composizione_ordine (ordine, pizza, formato_pizza, aggiunte, rimozio
 
 
 INSERT INTO scontrino (id, data, tipo_pagamento, totale_lordo, iva) VALUES
-	( '1', '2020-01-05', 'Contanti', total_price(1), total_vat(1)),
-	( '2', '2020-01-05', 'Contanti', total_price(2), total_vat(2)),
-	( '3', '2020-01-05', 'Contanti', total_price(3), total_vat(3)),
-	( '4', '2020-01-05', 'Contanti', total_price(4), total_vat(4)),
-	( '5', '2020-01-05', 'Contanti', total_price(5), total_vat(5)),
-	( '6', '2020-01-05', 'Contanti', total_price(6), total_vat(6)),
-	( '7', '2020-01-05', 'Contanti', total_price(7), total_vat(7)),
-	( '8', '2020-01-05', 'Contanti', total_price(8), total_vat(8)),
-	( '9', '2020-01-05', 'Contanti', total_price(9), total_vat(9)),
-	( '10', '2020-01-05', 'Contanti', total_price(10), total_vat(10)),
-	( '11', '2020-01-05', 'Contanti', total_price(11), total_vat(11)),
-	( '12', '2020-01-05', 'Contanti', total_price(12), total_vat(12)),
-	( '13', '2020-01-05', 'Contanti', total_price(13), total_vat(13)),
-	( '14', '2020-01-05', 'Contanti', total_price(14), total_vat(14)),
-	( '15', '2020-01-05', 'Contanti', total_price(15), total_vat(15)),
-	( '16', '2020-01-05', 'Contanti', total_price(16), total_vat(16)),
-	( '17', '2020-01-05', 'Contanti', total_price(17), total_vat(17)),
-	( '18', '2020-01-05', 'Contanti', total_price(18), total_vat(18)),
-	( '19', '2020-01-05', 'Contanti', total_price(19), total_vat(19)),
-	( '20', '2020-01-05', 'Contanti', total_price(20), total_vat(20)),
-	( '21', '2020-01-05', 'Contanti', total_price(21), total_vat(21)),
-	( '22', '2020-01-05', 'Contanti', total_price(22), total_vat(22)),
-	( '23', '2020-01-05', 'Contanti', total_price(23), total_vat(23)),
-	( '24', '2020-01-05', 'Contanti', total_price(24), total_vat(24)),
-	( '25', '2020-01-05', 'Contanti', total_price(25), total_vat(25)),
-	( '26', '2020-01-05', 'Contanti', total_price(26), total_vat(26)),
-	( '27', '2020-01-05', 'Contanti', total_price(27), total_vat(27)),
-	( '28', '2020-01-05', 'Contanti', total_price(28), total_vat(28)),
-	( '29', '2020-01-05', 'Contanti', total_price(29), total_vat(29)),
-	( '30', '2020-01-05', 'Contanti', total_price(30), total_vat(30));
+	( '1', '2020-01-05', 'Contanti', (SELECT * FROM total_price(1)), (SELECT * FROM total_vat(1))),
+	( '2', '2020-01-05', 'Contanti', (SELECT * FROM total_price(2)), (SELECT * FROM total_vat(2))),
+	( '3', '2020-01-05', 'Contanti', (SELECT * FROM total_price(3)), (SELECT * FROM total_vat(3))),
+	( '4', '2020-01-05', 'Contanti', (SELECT * FROM total_price(4)), (SELECT * FROM total_vat(4))),
+	( '5', '2020-01-05', 'Contanti', (SELECT * FROM total_price(5)), (SELECT * FROM total_vat(5))),
+	( '6', '2020-01-05', 'Contanti', (SELECT * FROM total_price(6)), (SELECT * FROM total_vat(6))),
+	( '7', '2020-01-05', 'Contanti', (SELECT * FROM total_price(7)), (SELECT * FROM total_vat(7))),
+	( '8', '2020-01-05', 'Contanti', (SELECT * FROM total_price(8)), (SELECT * FROM total_vat(8))),
+	( '9', '2020-01-05', 'Contanti', (SELECT * FROM total_price(9)), (SELECT * FROM total_vat(9))),
+	( '10', '2020-01-05', 'Contanti', (SELECT * FROM total_price(10)), (SELECT * FROM total_vat(10))),
+	( '11', '2020-01-05', 'Contanti', (SELECT * FROM total_price(11)), (SELECT * FROM total_vat(11))),
+	( '12', '2020-01-05', 'Contanti', (SELECT * FROM total_price(12)), (SELECT * FROM total_vat(12))),
+	( '13', '2020-01-05', 'Contanti', (SELECT * FROM total_price(13)), (SELECT * FROM total_vat(13))),
+	( '14', '2020-01-05', 'Contanti', (SELECT * FROM total_price(14)), (SELECT * FROM total_vat(14))),
+	( '15', '2020-01-05', 'Contanti', (SELECT * FROM total_price(15)), (SELECT * FROM total_vat(15))),
+	( '16', '2020-01-05', 'Contanti', (SELECT * FROM total_price(16)), (SELECT * FROM total_vat(16))),
+	( '17', '2020-01-05', 'Contanti', (SELECT * FROM total_price(17)), (SELECT * FROM total_vat(17))),
+	( '18', '2020-01-05', 'Contanti', (SELECT * FROM total_price(18)), (SELECT * FROM total_vat(18))),
+	( '19', '2020-01-05', 'Contanti', (SELECT * FROM total_price(19)), (SELECT * FROM total_vat(19))),
+	( '20', '2020-01-05', 'Contanti', (SELECT * FROM total_price(20)), (SELECT * FROM total_vat(20))),
+	( '21', '2020-01-05', 'Contanti', (SELECT * FROM total_price(21)), (SELECT * FROM total_vat(21))),
+	( '22', '2020-01-05', 'Contanti', (SELECT * FROM total_price(22)), (SELECT * FROM total_vat(22))),
+	( '23', '2020-01-05', 'Contanti', (SELECT * FROM total_price(23)), (SELECT * FROM total_vat(23))),
+	( '24', '2020-01-05', 'Contanti', (SELECT * FROM total_price(24)), (SELECT * FROM total_vat(24))),
+	( '25', '2020-01-05', 'Contanti', (SELECT * FROM total_price(25)), (SELECT * FROM total_vat(25))),
+	( '26', '2020-01-05', 'Contanti', (SELECT * FROM total_price(26)), (SELECT * FROM total_vat(26))),
+	( '27', '2020-01-05', 'Contanti', (SELECT * FROM total_price(27)), (SELECT * FROM total_vat(27))),
+	( '28', '2020-01-05', 'Contanti', (SELECT * FROM total_price(28)), (SELECT * FROM total_vat(28))),
+	( '29', '2020-01-05', 'Contanti', (SELECT * FROM total_price(29)), (SELECT * FROM total_vat(29))),
+	( '30', '2020-01-05', 'Contanti', (SELECT * FROM total_price(30)), (SELECT * FROM total_vat(30)));
 
-INSERT INTO scontrino (id, data, tipo_pagamento, totale_lordo, iva) VALUES
+/* INSERT INTO scontrino (id, data, tipo_pagamento, totale_lordo, iva) VALUES
 	( '1', '2020-01-05', 'Contanti', total_price(1), total_vat(1));
 INSERT INTO scontrino (id, data, tipo_pagamento, totale_lordo, iva) VALUES
 	( '2', '2020-01-05', 'Contanti', total_price(2), total_vat(2));
@@ -1398,4 +1398,4 @@ INSERT INTO scontrino (id, data, tipo_pagamento, totale_lordo, iva) VALUES
 INSERT INTO scontrino (id, data, tipo_pagamento, totale_lordo, iva) VALUES
 	( '29', '2020-01-05', 'Contanti', total_price(29), total_vat(29));
 INSERT INTO scontrino (id, data, tipo_pagamento, totale_lordo, iva) VALUES
-	( '30', '2020-01-05', 'Contanti', total_price(30), total_vat(30));
+	( '30', '2020-01-05', 'Contanti', total_price(30), total_vat(30)); */
