@@ -7,7 +7,7 @@ DECLARE
 BEGIN 
 	_now := NOW();
 	INSERT INTO ordine (ora, dipendente, pizzeria, cliente) VALUES 
-				(_now, ?, ^, ?) RETURNING id INTO _id;
+				(_now, ?, ?, ?) RETURNING id INTO _id;
 	INSERT INTO composizione_ordine (ordine, pizza, formato_pizza, aggiunte, rimozioni, ripetizioni) VALUES 
 		(_id, ?, ?, ?, ?, ?);
 
@@ -73,19 +73,18 @@ DECLARE
 	_bolla BIGINT;
 BEGIN 
 	_pizzeria := ?;
-	_magazzino := (SELECT id FROM magazzino WHERE magazzino.gestore = _pizzeria);
-	_amministrazione := (SELECT amministrazione.id
-						 FROM pizzeria
-						 LEFT JOIN amministrazione
-						 ON amministrazione.id = pizzeria.amministrazione
-						 WHERE pizzeria.id = _pizzeria);
 	_ingrediente := ?;
 	_quantita := ?;
+	_magazzino := (SELECT id FROM magazzino WHERE magazzino.gestore = _pizzeria);
+	_amministrazione := (SELECT amministrazione.id
+						 					 FROM pizzeria
+						 					 LEFT JOIN amministrazione
+						 					 ON amministrazione.id = pizzeria.amministrazione
+						 					 WHERE pizzeria.id = _pizzeria);
 	INSERT INTO rifornimento (mittente, magazzino, data) VALUES (_amministrazione, _magazzino, NOW()) RETURNING id INTO _rifornimento;
 	INSERT INTO bolla_carico (rifornimento, ingrediente, quantita) VALUES (_rifornimento, _ingrediente, _quantita);
 	INSERT INTO stock (magazzino, ingrediente, quantita) VALUES (_magazzino, _ingrediente, _quantita) ON CONFLICT (magazzino, ingrediente) DO
-	UPDATE SET quantita = stock.quantita + _quantita
-		WHERE stock.magazzino = _magazzino AND stock.ingrediente = _ingrediente;
+	UPDATE SET quantita = stock.quantita + _quantita;
 END;
 $$ LANGUAGE 'plpgsql';
 COMMIT;
