@@ -26,7 +26,7 @@ SELECT
 		   WHEN fatturato > 3000 AND fatturato < 4000 THEN 1000 + fatturato + (fatturato * 0.17)
 		   WHEN fatturato > 4000 THEN 1000 + fatturato + (fatturato * 0.2)
 	END AS stipendio
-FROM month_earning(?, ?)
+FROM month_earning(?, ?, ?)
 
 --- 3) Query per il calcolo dello stipendio mensile di un dipendente
 SELECT DISTINCT 
