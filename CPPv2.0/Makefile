@@ -5,16 +5,6 @@ LDFLAGS = -lpq
 ifeq ($(OS),Windows_NT)
     CCFLAGS += -D WIN32
 		DEPFLAGS += -L dependencies/lib
-    ifeq ($(PROCESSOR_ARCHITEW6432),AMD64)
-        CCFLAGS += -D AMD64
-    else
-        ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
-            CCFLAGS += -D AMD64
-        endif
-        ifeq ($(PROCESSOR_ARCHITECTURE),x86)
-            CCFLAGS += -D IA32
-        endif
-    endif
 else
     UNAME_S := $(shell uname -s)
     ifeq ($(UNAME_S),Linux)
