@@ -84,7 +84,7 @@ BEGIN
 	INSERT INTO rifornimento (mittente, magazzino, data) VALUES (_amministrazione, _magazzino, NOW()) RETURNING id INTO _rifornimento;
 	INSERT INTO bolla_carico (rifornimento, ingrediente, quantita) VALUES (_rifornimento, _ingrediente, _quantita);
 	INSERT INTO stock (magazzino, ingrediente, quantita) VALUES (_magazzino, _ingrediente, _quantita) ON CONFLICT (magazzino, ingrediente) DO
-	UPDATE SET quantita = stock.quantita + _quantita;
+		UPDATE SET quantita = stock.quantita + _quantita;
 END;
 $$ LANGUAGE 'plpgsql';
 COMMIT;
