@@ -311,7 +311,7 @@ $body$
 $body$ LANGUAGE SQL;
 
 
-CREATE OR REPLACE FUNCTION month_earning(tit TEXT, mon INT) RETURNS table(fatturato NUMERIC(5,2)) AS
+CREATE OR REPLACE FUNCTION month_earning(tit TEXT, mon INT, yy INT) RETURNS table(fatturato NUMERIC(5,2)) AS
 $body$
 	SELECT SUM(scontrino.totale_lordo) AS fatturato_mese
 	FROM ordine
@@ -319,8 +319,8 @@ $body$
 	ON scontrino.id = ordine.id
 	LEFT JOIN pizzeria
 	ON pizzeria.id = ordine.pizzeria
-	GROUP BY pizzeria.titolare, date_part('month', scontrino.data)
-	HAVING pizzeria.titolare = tit AND date_part('month', scontrino.data) = mon
+	GROUP BY pizzeria.titolare, date_part('month', scontrino.data), date_part('year', scontrino.data)
+	HAVING pizzeria.titolare = tit AND date_part('month', scontrino.data) = mon AND date_part('year', scontrino.data) = yy
 $body$ LANGUAGE SQL;
 
 CREATE OR REPLACE FUNCTION km(dip TEXT, mm INT, yy INT) RETURNS table(dip TEXT, km INT) AS
