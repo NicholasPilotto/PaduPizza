@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include "./dependencies/include/libpq-fe.h"
 #include "./pq.hpp"
 
 using pq::connection;
@@ -31,18 +32,20 @@ void print_pizzeria(connection*);
 
 void stip_tit(connection*);
 void stip_dip(connection*);
-void piz_rif(connection*);
-void insert_order(connection*);
-void refill(connection*);
+void piz_refill(connection*);
+void insert_order(connection*, string);
+void refill(connection*, string);
 void fatt_prov(connection*);
 
 int main() {
   vector<string> credential = get_credential();
   connection* conn;
+  string cred = "host=" + credential[0] + "dbname=" + credential[1] + "user=" + credential[2] + "password=" + credential[3];
   try {
-    conn = new connection("host=" + credential[0] + "dbname=" + credential[1] + "user=" + credential[2] + "password=" + credential[3]);
-  } catch (std::runtime_error) {
+    conn = new connection(cred);
+  } catch (std::runtime_error error) {
     cout << "\033[1;31mImpossibile connettersi al database!\033[0m" << endl;
+    cout << "\033[1;31mErrore: " << error.what() << "\033[0m" << endl;
     return 1;
   }
 
@@ -56,26 +59,31 @@ int main() {
   cout << "Inserire l'operazione da eseguire (1-6): ";
   cin >> op;
 
-  switch (op) {
-    // case 1:
-    //   insert_order(conn);
-    //   break;
-    case 2:
-      stip_tit(conn);
-      break;
-    case 3:
-      stip_dip(conn);
-      //   //   break;
-      //   // case 4:
-      //   //   piz_rif(conn);
-      //   //   break;
-      //   // case 5:
-      //   //   refill(conn);
-      //   //   break;
-      //   // case 6:
-      //   //   fatt_prov(conn);
-    default:
-      break;
+  try {
+    switch (op) {
+      case 1:
+        insert_order(conn, cred);
+        break;
+      case 2:
+        stip_tit(conn);
+        break;
+      case 3:
+        stip_dip(conn);
+        break;
+      case 4:
+        piz_refill(conn);
+        break;
+      case 5:
+        refill(conn, cred);
+        break;
+      case 6:
+        fatt_prov(conn);
+      default:
+        break;
+    }
+  } catch (std::runtime_error error) {
+    cout << "\033[1;31mErrore: " << error.what() << "\033[0m" << endl;
+    return EXIT_FAILURE;
   }
 
   delete conn;
@@ -96,6 +104,8 @@ vector<string> get_credential() {
     file >> line;
     aux.push_back(line + " ");
   }
+
+  file.close();
 
   return aux;
 }
@@ -223,6 +233,100 @@ void print_pizzeria(connection* conn) {
   }
 }
 
+void insert_order(connection* conn, string c) {
+  print_dipendenti(conn);
+  cout << endl;
+
+  print_clienti(conn);
+  cout << endl;
+
+  print_formato_pizza(conn);
+  cout << endl;
+
+  print_pizze(conn);
+  cout << endl;
+
+  print_tipo_pagamento(conn);
+  cout << endl;
+
+  char query[10000];
+  string aux =
+      "BEGIN; \
+       DO $$ \
+       DECLARE \
+       	_id BIGINT; \
+       	_now TIMESTAMP; \
+       BEGIN  \
+       	_now := NOW(); \
+       	INSERT INTO ordine (ora, dipendente, pizzeria, cliente) VALUES  \
+       				(_now, '%s', '%s', '%s') RETURNING id INTO _id; \
+       	INSERT INTO composizione_ordine (ordine, pizza, formato_pizza, aggiunte, rimozioni, ripetizioni) VALUES  \
+       		%s \
+        \
+       	INSERT INTO scontrino (id, data, tipo_pagamento, totale_lordo, iva) VALUES (_id, _now, '%s', (SELECT * FROM total_price(_id)), (SELECT * FROM total_vat(_id))); \
+       END; \
+       $$ LANGUAGE 'plpgsql'; \
+       COMMIT;";
+
+  string pizzeria;
+  string dipendente;
+  string cliente;
+
+  cout << "Inserisci la pizzeria nella quale effettuare l'ordine: ";
+  cin >> pizzeria;
+  cout << "Inserisci il dipendente che eseguira' l'ordine: ";
+  cin >> dipendente;
+  cout << "Inserisci il cliente alla quale consegnare l'ordine: ";
+  cin >> cliente;
+
+  int n_pizze;
+  cout << "Inserire il numero di pizze diverse da inserire nell'ordine: ";
+  cin >> n_pizze;
+
+  string datas;
+  string in;
+
+  string pizza;
+  string formato;
+  int aggiunte;
+  int rimozioni;
+  int ripetizioni;
+
+  for (int i = 0; i < n_pizze; i++) {
+    char data[100];
+
+    cout << "Inserisci il nome della pizza: ";
+    cin >> pizza;
+    cout << "Inserisci il formato della pizza: ";
+    cin >> formato;
+    cout << "Inserisci le aggiunte della  pizza: ";
+    cin >> aggiunte;
+    cout << "Inserisci le rimozioni della  pizza: ";
+    cin >> rimozioni;
+    cout << "Inserisci le ripetizioni della  pizza: ";
+    cin >> ripetizioni;
+
+    sprintf(data, "(_id, '%s', '%s', '%d', '%d', '%d'),", pizza.c_str(), formato.c_str(), aggiunte, rimozioni, ripetizioni);
+    datas.append(data);
+  }
+  datas.pop_back();
+  datas.push_back(';');
+
+  string pagamento;
+  cout << "Inserisci il tipo di pagamento: ";
+  cin >> pagamento;
+
+  sprintf(query, aux.c_str(), dipendente.c_str(), pizzeria.c_str(), cliente.c_str(), datas.c_str(), pagamento.c_str());
+
+  PGconn* con = PQconnectdb(c.c_str());
+  PGresult* r = PQexec(con, query);
+  if (r) {
+    cout << "\033[1;32mOrdine inserito correttamente!\033[0m" << endl;
+  } else {
+    cout << "\033[1;33mOrdine non inserito!\033[0m" << endl;
+  }
+}
+
 void stip_tit(connection* conn) {
   int month;
   int year;
@@ -263,6 +367,7 @@ void stip_tit(connection* conn) {
       cout << "€" << row["stipendio"].str() << endl;
     }
   }
+
   cout << endl;
 }
 
@@ -315,5 +420,130 @@ void stip_dip(connection* conn) {
     }
   }
 
+  cout << endl;
+}
+
+void piz_refill(connection* conn) {
+  print_pizze(conn);
+  cout << endl;
+
+  vector<row_t> rows = conn->exec(
+      "SELECT pizzeria.id, ingrediente.nome, stock.quantita \
+       FROM amministrazione \
+       INNER JOIN pizzeria \
+       ON pizzeria.amministrazione = amministrazione.id \
+       INNER JOIN magazzino \
+       ON magazzino.gestore = pizzeria.id \
+       INNER JOIN stock \
+       ON stock.magazzino = magazzino.id \
+       INNER JOIN ingrediente \
+       ON ingrediente.nome = stock.ingrediente \
+       WHERE stock.quantita < 20");
+
+  cout << "\033[1;4;94mID" << setw(30) << "Ingrediente" << setw(30) << "Quantita'"
+       << "\033[0m" << endl;
+  for (row_t& row : rows) {
+    string id = row["id"];
+    string ing = row["nome"];
+    string qua = row["quantita"];
+
+    cout << id << setw(30) << ing << setw(25) << qua << endl;
+  }
+}
+
+void refill(connection* conn, string c) {
+  print_pizzeria(conn);
+  cout << endl;
+
+  print_ingredienti(conn);
+  cout << endl;
+
+  string pizzeria;
+  string ingrediente;
+  unsigned int quantita;
+
+  cout << "Inserisci la pizzeria da rifornire: ";
+  cin >> pizzeria;
+  cout << "Inserisci l'ingrediente da rifornire: ";
+  cin >> ingrediente;
+  cout << "Inserisci la quantita': ";
+  cin >> quantita;
+  cout << endl;
+
+  char query[10000];
+  string aux =
+      "BEGIN; \
+                DO $$ \
+                DECLARE \
+                	_pizzeria TEXT; \
+                	_amministrazione TEXT; \
+                	_ingrediente VARCHAR; \
+                	_magazzino BIGINT; \
+                	_quantita INTEGER; \
+                	_rifornimento BIGINT; \
+                	_bolla BIGINT; \
+                BEGIN  \
+                	_pizzeria := '%s'; \
+                	_ingrediente := '%s'; \
+                	_quantita := %d; \
+                	_magazzino := (SELECT id FROM magazzino WHERE magazzino.gestore = _pizzeria); \
+                	_amministrazione := (SELECT amministrazione.id \
+                						 					 FROM pizzeria \
+                						 					 LEFT JOIN amministrazione \
+                						 					 ON amministrazione.id = pizzeria.amministrazione \
+                						 					 WHERE pizzeria.id = _pizzeria); \
+                	INSERT INTO rifornimento (mittente, magazzino, data) VALUES (_amministrazione, _magazzino, NOW()) RETURNING id INTO _rifornimento; \
+                	INSERT INTO bolla_carico (rifornimento, ingrediente, quantita) VALUES (_rifornimento, _ingrediente, _quantita); \
+                	INSERT INTO stock (magazzino, ingrediente, quantita) VALUES (_magazzino, _ingrediente, _quantita) ON CONFLICT (magazzino, ingrediente) DO \
+                		UPDATE SET quantita = stock.quantita + _quantita; \
+                END; \
+                $$ LANGUAGE 'plpgsql'; \
+                COMMIT;";
+
+  sprintf(query, aux.c_str(), pizzeria.c_str(), ingrediente.c_str(), quantita);
+
+  PGconn* con = PQconnectdb(c.c_str());
+  PGresult* r = PQexec(con, query);
+  if (r) {
+    cout << "\033[1;32mRefill completato!\033[0m" << endl;
+  } else {
+    cout << "\033[1;33mRefill non possibile!\033[0m" << endl;
+  }
+}
+
+void fatt_prov(connection* conn) {
+  cout << endl;
+  unsigned int month;
+  unsigned int year;
+
+  cout << "Inserisci il mese desiderato(1-12): ";
+  cin >> month;
+  cout << "Inserisci l'anno desiderato(e.g. 2021): ";
+  cin >> year;
+
+  auto stmt = conn->prepare("select_fatt_mens",
+                            "SELECT pizzeria.id AS Pizzeria, SUM(scontrino.totale_lordo) AS fatturato \
+                             FROM scontrino \
+                             LEFT JOIN ordine \
+                             ON ordine.id = scontrino.id \
+                             LEFT JOIN pizzeria \
+                             ON pizzeria.id = ordine.pizzeria \
+                             LEFT JOIN amministrazione \
+                             ON amministrazione.id = pizzeria.id \
+                             WHERE date_part('month', scontrino.data) = $1 AND date_part('year', scontrino.data) = $2 \
+                             GROUP BY pizzeria.id",
+                            2);
+
+  vector<row_t> rows = conn->exec(stmt, month, year);
+
+  cout << endl;
+  cout << "\033[1;4;94mID" << setw(30) << "Fatturato"
+       << "\033[0m" << endl;
+  for (row_t& row : rows) {
+    string id = row["pizzeria"];
+    string fat = row["fatturato"];
+
+    cout << id << setw(25) << fat << endl;
+  }
   cout << endl;
 }
